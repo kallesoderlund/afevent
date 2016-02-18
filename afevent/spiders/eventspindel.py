@@ -4,8 +4,8 @@
 # your spiders.
 from scrapy.spiders 		import Spider
 from scrapy.selector 		import HtmlXPathSelector
-#from afevent.items		import AfeventItem
-#from scrapy.http		import Request
+from afevent.items		import AfeventItem
+from scrapy.http		import Request
  
 class MySpider(Spider):
 	name 		= "dfs"
