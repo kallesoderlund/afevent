@@ -24,4 +24,5 @@ class MySpider(Spider):
                     item['date']    = div.xpath('./tr/td[1]/span/text()').extract()
                     item['link']    = div.xpath('./tr/td//@href').extract()
 
+
                 yield item
