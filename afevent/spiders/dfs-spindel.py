@@ -14,7 +14,6 @@ class MySpider(Spider):
  
 	def parse(self, response):
 		divs    = response.xpath('//tbody')
-		items   = []
 
 		for div in divs:
                     item = AfeventItem()
@@ -22,6 +21,13 @@ class MySpider(Spider):
                     item['city']    = div.xpath('./tr/td[4]/text()').extract()
                     item['host']    = div.xpath('./tr/td[5]/a/text()').extract()
                     item['date']    = div.xpath('./tr/td[1]/span/text()').extract()
-                    item['link']    = div.xpath('./tr/td//@href').extract()
+                    item['link']    = div.xpath('./tr/td[3]/div[2]/a/@href').extract()
+
+                    
+                    #Removes '\n' and ' ' from city, and adds part of url to link
+                    item['city'] = [x.strip('\n') for x in item['city']]
+                    item['city'] = [x.strip(' ') for x in item['city']]
+                    item['link'] = ['https://natverk.dfs.se' + x for x in item['link']]
+                    item['time'] = [x.split(' ') for x in item['date']]
 
                 yield item
