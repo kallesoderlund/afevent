@@ -15,6 +15,14 @@ SPIDER_MODULES = ['afevent.spiders']
 NEWSPIDER_MODULE = 'afevent.spiders'
 
 
+ITEM_PIPELINE =['dfs.pipelines.AfeventPipeline']
+
+MONGODB_SERVER = 'localhost'
+MONGODB_PORT = 27017
+MONGODB_DB = "eventDB"
+MONGODB_COLLECTION = "questions"
+
+
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'afevent (+http://www.yourdomain.com)'
 
