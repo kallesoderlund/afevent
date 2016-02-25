@@ -6,6 +6,7 @@ from scrapy.spiders 		import Spider
 from scrapy.selector 		import HtmlXPathSelector
 from afevent.items		import AfeventItem
 from scrapy.http		import Request
+from scrapy.crawler             import CrawlerProcess
  
 class MySpider(Spider):
 	name 		= "dfs"
@@ -31,3 +32,7 @@ class MySpider(Spider):
                     item['time'] = [x.split(' ') for x in item['date']]
 
                 yield item
+
+##process = CrawlerProcess()
+##process.crawl(dfs)
+##process.start()
