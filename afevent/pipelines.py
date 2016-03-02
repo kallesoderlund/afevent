@@ -6,7 +6,10 @@
 # See: http://doc.scrapy.org/en/latest/topics/item-pipeline.html
 import pymongo
 
-from scrapy.conf import settings
+from scrapy.conf	 	import settings
+from scrapy.exceptions	import DropItem
+from scrapy				import log
+from pymongo			import MongoClient
 
 
 class AfeventPipeline(object):
@@ -17,7 +20,11 @@ class AfeventPipeline(object):
             settings['MONGODB_PORT']
         )
         db = connection[settings['MONGODB_DB']]
-        self.colletion = db[settings['MONGODB_COLLECTION']]
+        self.collection = db[settings['MONGODB_COLLECTION']]
         
     def process_item(self, item, spider):
-        return item
+    	for data in item:
+    		if not data:
+    			raise DropItem("Missing {0}!".format(data))
+    	self.collection.update({'url': item['url']}; dict(item), upsert = True)
+    	return item
