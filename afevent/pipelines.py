@@ -8,7 +8,6 @@ import pymongo
 
 from scrapy.conf	 	import settings
 from scrapy.exceptions	import DropItem
-from scrapy				import log
 from pymongo			import MongoClient
 
 
@@ -23,8 +22,13 @@ class AfeventPipeline(object):
         self.collection = db[settings['MONGODB_COLLECTION']]
         
     def process_item(self, item, spider):
-    	for data in item:
-    		if not data:
-    			raise DropItem("Missing {0}!".format(data))
-    	self.collection.update({'url': item['url']}; dict(item), upsert = True)
+    	if self.collection.find_one({'link': item['link']}):
+    		raise DropItem('Item already in DB')
+    	else:
+    		self.collection.insert(dict(item))
+    	# for data in item:
+    	# 	if not data:
+    	# 		valid = False
+    	# 		raise DropItem("Missing {0}!".format(data))
+    	
     	return item

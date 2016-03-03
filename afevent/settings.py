@@ -14,12 +14,14 @@ BOT_NAME = 'afevent'
 SPIDER_MODULES = ['afevent.spiders']
 NEWSPIDER_MODULE = 'afevent.spiders'
 
-ITEM_PIPELINE =['dfs.pipelines.AfeventPipeline']
+ITEM_PIPELINE =['afevent.pipelines.AfeventPipeline']
 
 MONGODB_SERVER = "localhost"
 MONGODB_PORT = 27017
 MONGODB_DB = "eventDB"
 MONGODB_COLLECTION = "events"
+
+ITEM_PIPELINES = {'afevent.pipelines.AfeventPipeline': 300}
 
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent

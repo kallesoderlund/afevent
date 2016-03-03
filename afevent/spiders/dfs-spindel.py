@@ -14,7 +14,7 @@ class myItems(scrapy.Item):
 
 
 class MySpider(Spider):
-	name 		= "dfs"
+	name 		= "afevent"
 	allowed_domains	= ["natverk.dfs.se"]
 	start_urls	= ["https://natverk.dfs.se/pagang"]
  
