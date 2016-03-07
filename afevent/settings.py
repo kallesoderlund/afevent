@@ -23,6 +23,9 @@ MONGODB_COLLECTION = "events"
 
 ITEM_PIPELINES = {'afevent.pipelines.AfeventPipeline': 300}
 
+DEPTH_LIMIT = 1
+DOWNLOAD_DELAY = .5
+
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'afevent (+http://www.yourdomain.com)'

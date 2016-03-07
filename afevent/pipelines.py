@@ -22,7 +22,7 @@ class AfeventPipeline(object):
         self.collection = db[settings['MONGODB_COLLECTION']]
         
     def process_item(self, item, spider):
-    	if self.collection.find_one({'link': item['link']}):
+    	if self.collection.find_one({'url': item['url']}):
     		raise DropItem('Item already in DB')
     	else:
     		self.collection.insert(dict(item))
