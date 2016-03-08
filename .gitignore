@@ -45,9 +45,8 @@ $RECYCLE.BIN/
 Network Trash Folder
 Temporary Items
 .apdisk
-data.csv
-*.pyc
-web site/testdb
-events.json
-*.pyc
-afevent/settings.pyc
+afevent/spiders/eventspindel.pyc
+afevent/spiders/eventspindel.py
+afevent/spiders/eventspindel.py
+*.php
+web site/testar.php

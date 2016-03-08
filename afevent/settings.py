@@ -26,6 +26,7 @@ ITEM_PIPELINES = {'afevent.pipelines.AfeventPipeline': 300}
 DEPTH_LIMIT = 1
 DOWNLOAD_DELAY = .5
 
+<<<<<<< HEAD
 
 # BOT_NAME = 'afevent'
 
@@ -41,6 +42,8 @@ DOWNLOAD_DELAY = .5
 
 # ITEM_PIPELINES = {'afevent.pipelines.AfeventPipeline': 300}
 
+=======
+>>>>>>> origin/master
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'afevent (+http://www.yourdomain.com)'

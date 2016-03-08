@@ -44,4 +44,9 @@ class MySpider(Spider):
 			item['date'] = date_list[x]
 			item['time'] = time_list[x]
 			item['url'] = url_list[x]
+<<<<<<< HEAD
 			yield item
+=======
+			yield item
+		
+>>>>>>> origin/master
