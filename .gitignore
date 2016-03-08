@@ -48,3 +48,5 @@ Temporary Items
 afevent/spiders/eventspindel.pyc
 afevent/spiders/eventspindel.py
 afevent/spiders/eventspindel.py
+*.php
+web site/testar.php
