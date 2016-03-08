@@ -13,5 +13,5 @@ class AfeventItem(scrapy.Item):
     city = Field()
     host = Field()
     date = Field()
-    link = Field()
+    url = Field()
     time = Field()
