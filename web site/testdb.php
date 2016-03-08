@@ -1,34 +1,45 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link rel="stylesheet" type="text/css" href="mystyle.css">
 <title>ÅF Event Calendar</title>
 <meta charset="UTF-8">
 </head>
 <body>
 
-<h1>ÅF Event Calendar</h1>
-<p>This is our data.</p>
+<AFtitel>ÅF Event Calendar</AFtitel>
+<text>
 <?php
    // connect to mongodb
    $m = new MongoClient();
-   echo "Connection to database successfully";
+   
    // select a database
    $db = $m->selectDB("eventDB");
    $collections = $db->listCollections();
-   echo "Database $db selected";
 
-
-?>
-<?php
 $db = new Mongo();
 $query = $db->eventDB->events->find();
 
-echo '<pre><h2>';
+echo '<pre>';
+foreach ( $query as $current ){
+	echo '<div>';
+	echo '<title_text>' . $current['title'];
+	echo '</title_text>';
+	echo "\n";
+	echo 'City: ' . $current['city'] ."\n";
+	echo 'Host: ' . $current['host'] ."\n";
+	echo 'Date: ' . $current["date"] ."\n";
+	echo 'Time: ' . $current["time"] ."\n";
+	
+	echo' <a href="'.$current["url"].'" target="_blank"> '." --> To the event" .'</a>';
+	// echo 'More information:'.' <a href="'.$current["url"].'" target="_blank"> '.$current["url"] .'</a>';
+	
+	echo '</div>';
+	echo "\n";
+}
 
-foreach ( $query as $current )
-    print_r($current);
-
-echo '</h2></pre>';
+echo '</pre>';
 ?>
+</text>
 </body>
 </html>
