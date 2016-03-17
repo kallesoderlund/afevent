@@ -6,16 +6,16 @@
 # http://doc.scrapy.org/en/latest/topics/items.html
 
 import scrapy
-from scrapy import Item, Field
+from scrapy 	import Item, Field
 
 class AfeventItem(scrapy.Item):
     title = Field()
     city = Field()
+    venue = Field()
     host = Field()
     date = Field()
-<<<<<<< HEAD
     link = Field()
-=======
     url = Field()
     time = Field()
->>>>>>> origin/master
+    description = Field()
+

@@ -26,17 +26,22 @@ foreach ( $query as $current ){
 	echo '<title_text>' . $current['title'];
 	echo '</title_text>';
 	echo "\n";
-	echo 'City: ' . $current['city'] ."\n";
-	echo 'Host: ' . $current['host'] ."\n";
-	echo 'Date: ' . $current["date"] ."\n";
-	echo 'Time: ' . $current["time"] ."\n";
+	echo 'City: ' . (!empty($current['city']) ? $current['city'] : "")."\n";
+
+	echo 'Host: ' . (!empty($current['host']) ? $current['host'] : "")."\n";
+	echo 'Date: ' . (!empty($current['date']) ? $current['date'] : "")."\n";
+	echo 'Time: ' . (!empty($current['time']) ? $current['time'] : "")."\n";
+	echo 'Description: ' . (!empty($current['description']) ? $current['description'] : ""). "\n";
+	echo 'Long Description: ' . (!empty($current['long_description']) ? $current['long_description'] : ""). "\n";
+	
 	
 	echo' <a href="'.$current["url"].'" target="_blank"> '." --> To the event" .'</a>';
-	// echo 'More information:'.' <a href="'.$current["url"].'" target="_blank"> '.$current["url"] .'</a>';
 	
 	echo '</div>';
 	echo "\n";
 }
+
+
 
 echo '</pre>';
 ?>
