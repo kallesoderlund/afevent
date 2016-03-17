@@ -43,12 +43,6 @@ class MySpider(CrawlSpider):
 		# 	request = Request(link_list, callback = self.parse_url)
 		# 	requst.meta['item'] = item
 		# 	yield request
-
-<<<<<<< HEAD
-                yield item
-
-               
-=======
 		# for x in range(0, len(title_list)):
 		# 	item = AfeventItem()
 		# 	item['title'] = title_list[x]
@@ -56,7 +50,7 @@ class MySpider(CrawlSpider):
 		# 	item['date'] = date_list[x]
 		# 	request = Request(link_list[x], callback = self.parse_url)
 		# 	request.meta['item'] = item
-		yield request
+	
 
  	# def parse_url(self, response):
  	# 	item = response.meta['item']
@@ -64,4 +58,4 @@ class MySpider(CrawlSpider):
  	# 	link = hxs.select('//*[@class="split first item-meta"]/ul/li/a').extract()
  	# 	item['url'] = hxs.select('/html/body/div[1]/div[4]/div/div/div[2]/div[2]/div[1]/div[1]/div[1]/ul/li[1]/a/span/text()').extract()[0]
  	# 	yield item
->>>>>>> origin/master
+

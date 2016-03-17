@@ -22,27 +22,16 @@ class AfeventPipeline(object):
         self.collection = db[settings['MONGODB_COLLECTION']]
         
     def process_item(self, item, spider):
-<<<<<<< HEAD
         if self.collection.find_one({'url': item['url']}):
             raise DropItem('Item already in DB')
         else:
             self.collection.insert(dict(item))
-        # for data in item:
-        #   if not data:
-        #       valid = False
-        #       raise DropItem("Missing {0}!".format(data))
+        for data in item:
+          if not data:
+              valid = False
+              raise DropItem("Missing {0}!".format(data))
         
         return item
 
-=======
-    	if self.collection.find_one({'url': item['url']}):
-    		raise DropItem('Item already in DB')
-    	else:
-    		self.collection.insert(dict(item))
-    	# for data in item:
-    	# 	if not data:
-    	# 		valid = False
-    	# 		raise DropItem("Missing {0}!".format(data))
     	
-    	return item
->>>>>>> origin/master
+
