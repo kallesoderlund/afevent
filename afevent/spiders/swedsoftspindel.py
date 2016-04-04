@@ -39,12 +39,12 @@ class MySpider(CrawlSpider):
 				i = i + 1		
 			yield request
 
-<<<<<<< HEAD
+
 	def parse_second(self, response):
 		item = response.meta['item']
 		item ['description'] = ''.join(response.xpath('//*[@id]/section/p//text()|//*[@id]/section/p//text()|//*[@id]/section/p//text()').extract())
 		yield item
-=======
+
 	
 
 		#Combine related attributes into events
@@ -60,4 +60,4 @@ class MySpider(CrawlSpider):
 			item['host'] = 'Swedsoft'
 			yield item
 
->>>>>>> refs/remotes/origin/17e-mars---k
+
