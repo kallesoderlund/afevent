@@ -8,6 +8,8 @@
 import scrapy
 from scrapy 	import Item, Field
 
+# The following are the attributes which the spider tries to extract. If an
+# attribute is not presented on the website, the attribute will receive a null value. 
 class AfeventItem(scrapy.Item):
     title = Field()
     city = Field()
