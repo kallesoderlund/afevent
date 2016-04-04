@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<link rel="stylesheet" type="text/css" href="mystyle.css">
+		<link rel="stylesheet" type="text/css" href="mystyle1.css">
 		<title>ÅF Event Calendar</title>
 		<meta charset="UTF-8">
 	</head>
@@ -52,15 +52,23 @@
 						echo '<a href="'.$current["url"].'" target="_blank"><h3>' . $current['title'];
 						echo '</h3></a>';
 						echo "<br>";
-						echo '<strong>City: </strong>' . $current['city'];
+						echo '<strong>Date: </strong>' . (!empty($current['date']) ? $current['date'] : "");
 						echo "<br>";
-						echo '<strong>Host: </strong>' . $current['host'];
+						echo '<strong>Time: </strong>' . (!empty($current['time']) ? $current['time'] : "");
 						echo "<br>";
-						echo '<strong>Date: </strong>' . $current["date"];
+						echo '<strong>City: </strong>' . (!empty($current['city']) ? $current['city'] : "");
 						echo "<br>";
-						echo '<strong>Time: </strong>' . $current["time"];
+						echo '<strong>Host: </strong>' . (!empty($current['host']) ? $current['host'] : "");
 						echo "<br>";
-						echo' <a href="'.$current["url"].'" target="_blank"> '." --> To the event" .'</a>';
+						echo '<strong>Venue: </strong>' . (!empty($current['venue']) ? $current['venue'] : "");
+						echo "<br>";
+						#echo '<strong>Description_2: </strong>' . (!empty($current['description_2']) ? $current['description_2'] : "");
+					
+						echo '<strong>Description: </strong>' . (!empty($current['description']) ? $current['description'] : "");
+						echo "<br>";
+					
+
+						#echo' <a href="'.$current["url"].'" target="_blank"> '." --> To the event" .'</a>';
 						echo '</div>';
 						echo "<br>";
 					}
@@ -72,15 +80,22 @@
 						echo '<a href="'.$current["url"].'" target="_blank"><h3>' . $current['title'];
 						echo '</h3></a>';
 						echo "<br>";
-						echo 'City: ' . $current['city'];
+						echo 'City: ' . $current(!empty($current['city']) ? $current['city'] : "");
 						echo "<br>";
-						echo 'Host: ' . $current['host'];
+						echo 'Host: ' . $current(!empty($current['host']) ? $current['host'] : "");
 						echo "<br>";
-						echo 'Date: ' . $current["date"];
+						echo 'Date: ' . $current(!empty($current['date']) ? $current['date'] : "");
 						echo "<br>";
-						echo 'Time: ' . $current["time"];
+						echo 'Time: ' . $current(!empty($current['time']) ? $current['time'] : "");
+
+						#echo '<strong>Description_2: </strong>' . (!empty($current['description_2']) ? $current['description_2'] : "");
 						echo "<br>";
-						echo' <a href="'.$current["url"].'" target="_blank"> '." --> To the event" .'</a>';
+						echo "<br>";
+						echo '<strong>Description: </strong>' . (!empty($current['description']) ? $current['description'] : "");
+						echo "<br>";
+						#echo '<strong>Long description: </strong>' . (!empty($current['long_description']) ? $current['long_description'] : "");
+						echo "<br>";
+						#echo' <a href="'.$current["url"].'" target="_blank"> '." --> To the event" .'</a>';
 						// echo 'More information:'.' <a href="'.$current["url"].'" target="_blank"> '.$current["url"] .'</a>';
 						echo '</div>';
 						echo "<br>";
