@@ -43,6 +43,7 @@ class MySpider(Spider):
 			item['venue'] = venue_list[x]
 			item['date'] = date_list[x]
 			item['url'] = url_list[x]
+			item['host'] = ''
 			#item['time'] = time_list[x]
 			item['description'] = description_list[x]
 			item['host'] = 'Swedsoft'
