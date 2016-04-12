@@ -39,25 +39,23 @@ class MySpider(CrawlSpider):
 				i = i + 1		
 			yield request
 
-<<<<<<< HEAD
 	def parse_second(self, response):
 		item = response.meta['item']
 		item ['description'] = ''.join(response.xpath('//*[@id]/section/p//text()|//*[@id]/section/p//text()|//*[@id]/section/p//text()').extract())
 		yield item
-=======
 	
 
-		#Combine related attributes into events
-		for x in range(0,len(title_list)):
-			item['title'] = title_list[x]
-			item['city'] = city_list[x]
-			item['venue'] = venue_list[x]
-			item['date'] = date_list[x]
-			item['url'] = url_list[x]
-			item['host'] = ''
-			#item['time'] = time_list[x]
-			item['description'] = description_list[x]
-			item['host'] = 'Swedsoft'
-			yield item
+		# #Combine related attributes into events
+		# for x in range(0,len(title_list)):
+		# 	item['title'] = title_list[x]
+		# 	item['city'] = city_list[x]
+		# 	item['venue'] = venue_list[x]
+		# 	item['date'] = date_list[x]
+		# 	item['url'] = url_list[x]
+		# 	item['host'] = ''
+		# 	#item['time'] = time_list[x]
+		# 	item['description'] = description_list[x]
+		# 	item['host'] = 'Swedsoft'
+		# 	yield item
 
->>>>>>> refs/remotes/origin/17e-mars---k
+
