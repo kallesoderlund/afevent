@@ -44,6 +44,7 @@ class MySpider(CrawlSpider):
 		item = response.meta['item']
 		item ['description'] = ''.join(response.xpath('//*[@id]/section/p//text()|//*[@id]/section/p//text()|//*[@id]/section/p//text()').extract())
 		yield item
+
 	
 
 		#Combine related attributes into events

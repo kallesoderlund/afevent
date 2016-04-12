@@ -6,7 +6,6 @@ from afevent.items				import AfeventItem
 from scrapy.http				import Request
 from urlparse 					import urljoin
 
-
 #Instantiates spider class, and sets up allowed domain and start page to crawl
 class MySpider(CrawlSpider):
 	name		= "lanyrd"
