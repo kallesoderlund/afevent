@@ -20,4 +20,4 @@ class AfeventItem(scrapy.Item):
     url = Field()
     time = Field()
     description = Field()
-    description_2 = Field()
+    tags = Field()

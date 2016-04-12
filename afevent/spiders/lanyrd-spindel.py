@@ -46,6 +46,7 @@ class MySpider(CrawlSpider):
 			item['date'] = div.xpath('//p[@class="date"]/abbr[1]/@title').extract()[i]
 			item['host'] = ''
 			item['time'] = ''
+			item['description'] = ''
 
 			
 			follow_url_1 = div.xpath('//h4/a/@href').extract()[i]

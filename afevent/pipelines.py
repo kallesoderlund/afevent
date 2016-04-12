@@ -25,7 +25,18 @@ class AfeventPipeline(object):
         if self.collection.find_one({'url': item['url']}):
             raise DropItem('Item already in DB')
         else:
+            description = item['description'].lower()
+            title = item['title'].lower()
+            item['tags'] = []
+            keywords = ["fastighet", "automatic", "industri", "process", "autmation", "student", "ingenjor", "skog", "digital", "infrastruktur", " it", "samhallsbyggnad", "fisksas"]
+
+            for i in range(len(keywords)):
+                if keywords[i] in description or keywords[i] in title:
+                    if keywords[i] not in item['tags']:
+                        item['tags'].append(keywords[i])
+            print item['tags']
             self.collection.insert(dict(item))
+
         for data in item:
           if not data:
               valid = False

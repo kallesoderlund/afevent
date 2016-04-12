@@ -7,16 +7,16 @@ from scrapy.http						import Request
 from scrapy.contrib.spiders 			import CrawlSpider, Rule
 from scrapy.contrib.linkextractors.sgml import SgmlLinkExtractor
 
-class myItems(scrapy.Item):
-	title 		= scrapy.Field()
-	city 		= scrapy.Field()
-	venue 		= scrapy.Field()
-	date 		= scrapy.Field()
-	time 		= scrapy.Field()
-	description = scrapy.Field()
-	host 		= scrapy.Field()
-	url 		= scrapy.Field()
-	long_description = scrapy.Field()
+# class myItems(scrapy.Item):
+# 	title 		= scrapy.Field()
+# 	city 		= scrapy.Field()
+# 	venue 		= scrapy.Field()
+# 	date 		= scrapy.Field()
+# 	time 		= scrapy.Field()
+# 	description = scrapy.Field()
+# 	host 		= scrapy.Field()
+# 	url 		= scrapy.Field()
+# 	long_description = scrapy.Field()
 
 class MySpider(CrawlSpider):
 	name 		= "afny"
@@ -27,7 +27,7 @@ class MySpider(CrawlSpider):
 
 	def parser(self, response):
 		divs = response.xpath('//body')
-		item = myItems()
+		item = AfeventItem()
 
 		title_list = ''.join(divs.xpath('//*[@id="mainContent"]/main/section[3]/div[1]/div[1]/article/h1/text()').extract())
 		date_list = ''.join(divs.xpath('//*[@id="mainContent"]/main/section[3]/div[1]/div[1]/article/span/text()').extract())

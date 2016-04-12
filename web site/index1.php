@@ -86,7 +86,7 @@
             <div class="panel-group">
       <?php
         // define variables and set to empty values
-        $title = $host = $city = $date = $url = $time = "";
+       // $title = $host = $city = $date = $url = $time = "";
           $city = (isset($_POST['city']) ? $_POST['city'] : '');
         $cityQuery = array('city' => $city);
         //if "Select city" is chosen in drop down menu, select all cities
@@ -107,10 +107,17 @@
             echo "<br>";
             echo '<strong>Description: </strong>' . (!empty($current["description"]) ? $current['description'] : "");
             echo "<br>";
+            echo '<strong>Tags: </strong>'; //. (!empty($current["tags"]) ? $current['tags'] : "");
+            $tags = $current["tags"];
+            $len=count($tags);
+            for ($i=0;$i<$len;$i++)
+              echo $tags[$i] . " ";
+            echo '</pre>';
+            echo "<br>";
             echo '</div>';
             echo '</div>';
-               
-        }
+            
+            }
         // select the city corresponding to the drop down menu
         } else {
           $query = $collection->find($cityQuery);
@@ -128,6 +135,8 @@
             echo '<strong>Time: </strong>' . (!empty($current["time"]) ? $current['time'] : "");
             echo "<br>";
             echo '<strong>Description: </strong>' . (!empty($current["description"]) ? $current['description'] : "");
+            echo "<br>";
+            echo '<strong>Tags: </strong>' . (!empty($current["tags"]) ? $current['tags'] : "");
             echo "<br>";
             echo '</div>';
             echo '</div>';
