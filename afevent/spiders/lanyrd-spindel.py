@@ -4,7 +4,13 @@ from scrapy.selector 			import HtmlXPathSelector
 from scrapy.linkextractors.sgml	import SgmlLinkExtractor
 from afevent.items				import AfeventItem
 from scrapy.http				import Request
+<<<<<<< HEAD
+
 from urlparse 					import urljoin
+
+=======
+from urlparse 					import urljoin
+>>>>>>> origin/master
 
 #Instantiates spider class, and sets up allowed domain and start page to crawl
 class MySpider(CrawlSpider):
@@ -70,8 +76,6 @@ class MySpider(CrawlSpider):
  		link = response.xpath('//*[@class="split first item-meta"]/ul/li/a').extract()
  		item['url'] = response.xpath('/html/body/div[1]/div[4]/div/div/div[2]/div[2]/div[1]/div[1]/div[1]/ul/li[1]/a/@href').extract()[0]
  		yield item
-
-
 
 	# This def recieves a request and all attributes scraped by "parse".
 	# It then looks for the url to the event at a given place and passes all
