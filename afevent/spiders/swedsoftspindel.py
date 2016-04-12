@@ -39,10 +39,12 @@ class MySpider(CrawlSpider):
 				i = i + 1		
 			yield request
 
+
 	def parse_second(self, response):
 		item = response.meta['item']
 		item ['description'] = ''.join(response.xpath('//*[@id]/section/p//text()|//*[@id]/section/p//text()|//*[@id]/section/p//text()').extract())
 		yield item
+
 	
 
 		# #Combine related attributes into events
