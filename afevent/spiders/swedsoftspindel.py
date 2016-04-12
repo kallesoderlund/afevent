@@ -47,16 +47,16 @@ class MySpider(CrawlSpider):
 
 	
 
-		#Combine related attributes into events
-		for x in range(0,len(title_list)):
-			item['title'] = title_list[x]
-			item['city'] = city_list[x]
-			item['venue'] = venue_list[x]
-			item['date'] = date_list[x]
-			item['url'] = url_list[x]
-			item['host'] = ''
-			#item['time'] = time_list[x]
-			item['description'] = description_list[x]
-			item['host'] = 'Swedsoft'
-			yield item
+		# #Combine related attributes into events
+		# for x in range(0,len(title_list)):
+		# 	item['title'] = title_list[x]
+		# 	item['city'] = city_list[x]
+		# 	item['venue'] = venue_list[x]
+		# 	item['date'] = date_list[x]
+		# 	item['url'] = url_list[x]
+		# 	item['host'] = ''
+		# 	#item['time'] = time_list[x]
+		# 	item['description'] = description_list[x]
+		# 	item['host'] = 'Swedsoft'
+		# 	yield item
 
