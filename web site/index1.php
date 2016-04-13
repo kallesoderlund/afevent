@@ -107,7 +107,7 @@
             echo "<br>";
             echo '<strong>Description: </strong>' . (!empty($current["description"]) ? $current['description'] : "");
             echo "<br>";
-            echo '<strong>Tags: </strong>'; //. (!empty($current["tags"]) ? $current['tags'] : "");
+            echo '<strong>Tags: </strong>'; 
             $tags = $current["tags"];
             $len=count($tags);
             for ($i=0;$i<$len;$i++)
@@ -136,12 +136,17 @@
             echo "<br>";
             echo '<strong>Description: </strong>' . (!empty($current["description"]) ? $current['description'] : "");
             echo "<br>";
-            echo '<strong>Tags: </strong>' . (!empty($current["tags"]) ? $current['tags'] : "");
+            echo '<strong>Tags: </strong>';
+            $tags = $current["tags"];
+            $len=count($tags);
+            for ($i=0;$i<$len;$i++)
+              echo $tags[$i] . " ";
             echo "<br>";
             echo '</div>';
             echo '</div>';
           }
         }
+        var_dump($query);
       ?>
 
         </div>

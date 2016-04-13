@@ -28,7 +28,7 @@ class AfeventPipeline(object):
             description = item['description'].lower()
             title = item['title'].lower()
             item['tags'] = []
-            keywords = ["fastighet", "automatic", "industri", "process", "autmation", "student", "ingenjor", "skog", "digital", "infrastruktur", " it", "samhallsbyggnad", "fisksas"]
+            keywords = ["fastighet", "commerce", "automatic", "industri", "process", "autmation", "student", "ingenjor", "skog", "digital", "infrastruktur", " it", "samhallsbyggnad", "fisksas"]
 
             for i in range(len(keywords)):
                 if keywords[i] in description or keywords[i] in title:

@@ -35,10 +35,10 @@ class MySpider(CrawlSpider):
 		print len(divs)
 		for div in divs:
 
-			print "in for"
 			item = AfeventItem()
 			item['city'] = div.xpath('./td[4]/text()').extract_first().strip()
 			item['title'] = div.xpath('./td/div[@class = "event-title"]/span[@class = "link"]/text()').extract()[0]
+			item['description'] = div.xpath('./td[3]/div[2]/div//text()').extract()[0]
 			date_time = div.xpath('./td[1]/span/text()').extract()[0].split(' ')
 			item['date'] = date_time[0]
 			item['time'] = date_time[1]
@@ -55,8 +55,8 @@ class MySpider(CrawlSpider):
 	# scraped attributes to the database.
  	def parse_url(self, response):
  		item = response.meta['item']
- 		print response.url
- 		skriv = response.xpath('//*[@id="content"]/div[1]/h1/text()').extract()
- 		print skriv
- 		item['description'] = ''.join(response.xpath('//*[@id="content"]/div[1]/article/div[5]/div/div/text()').extract()).strip()
+ 		#print response.url
+ 		#skriv = response.xpath('//*[@id="content"]/div[1]/h1/text()').extract()
+ 		#print skriv
+ 		#item['description'] = ''.join(response.xpath('//*[@id="content"]/div[1]/article/div[5]/div/div/text()').extract()).strip()
  		yield item

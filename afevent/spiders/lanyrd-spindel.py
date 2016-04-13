@@ -4,13 +4,7 @@ from scrapy.selector 			import HtmlXPathSelector
 from scrapy.linkextractors.sgml	import SgmlLinkExtractor
 from afevent.items				import AfeventItem
 from scrapy.http				import Request
-<<<<<<< HEAD
-
 from urlparse 					import urljoin
-
-=======
-from urlparse 					import urljoin
->>>>>>> origin/master
 
 #Instantiates spider class, and sets up allowed domain and start page to crawl
 class MySpider(CrawlSpider):
