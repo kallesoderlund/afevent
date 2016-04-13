@@ -146,7 +146,6 @@
             echo '</div>';
           }
         }
-        var_dump($query);
       ?>
 
         </div>

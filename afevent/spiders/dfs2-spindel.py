@@ -30,9 +30,7 @@ class MySpider(CrawlSpider):
  	# It returns this request and then iterates to the next event div. It will
  	# continue to iterate until the index is equal to the amount of event divs.
 	def parse(self, response):
-		print "in parse"
 		divs = response.xpath('//tbody/tr')
-		print len(divs)
 		for div in divs:
 
 			item = AfeventItem()
