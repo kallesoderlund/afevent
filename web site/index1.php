@@ -86,12 +86,15 @@
             <div class="panel-group">
       <?php
         // define variables and set to empty values
-       // $title = $host = $city = $date = $url = $time = "";
-          $city = (isset($_POST['city']) ? $_POST['city'] : '');
-        $cityQuery = array('city' => $city);
+         $title = $host = $city = $date = $url = $time = "";
+        $city = (isset($_POST['city']) ? $_POST['city'] : '');
+        $today = date("Y-m-d");
+        $cityQuery = array('city' => $city, 'date'=> array('$gte'=>$today));
+        $afterToday=array('date'=> array('$gte'=>$today));
         //if "Select city" is chosen in drop down menu, select all cities
         if ($_POST['city'] == 'cities') {
-          $query = $collection->find();
+          $query = $collection->find($afterToday);
+          $query->sort(array("date"=>1));
           foreach ( $query as $current ){
             echo '<div class="panel panel-primary">';
             echo '<a href="'.$current["url"].'"><div class="panel-heading"><h3 id="title-text">' . $current["title"];
@@ -116,11 +119,11 @@
             echo "<br>";
             echo '</div>';
             echo '</div>';
-            
             }
         // select the city corresponding to the drop down menu
         } else {
           $query = $collection->find($cityQuery);
+          $query->sort(array("date"=>1));
           foreach ( $query as $current ){
             echo '<div class="panel panel-primary">';
             echo '<a href="'.$current["url"].'"><div class="panel-heading"><h3 id="title-text">' . $current["title"];
@@ -146,6 +149,7 @@
             echo '</div>';
           }
         }
+
       ?>
 
         </div>
