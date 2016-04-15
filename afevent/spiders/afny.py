@@ -1,3 +1,9 @@
+# encoding=utf8  
+import sys  
+
+reload(sys)  
+sys.setdefaultencoding('utf8')
+
 import scrapy
 from scrapy.spiders 					import CrawlSpider, Rule
 from scrapy.selector 					import HtmlXPathSelector
@@ -28,6 +34,7 @@ class MySpider(CrawlSpider):
 	def parser(self, response):
 		divs = response.xpath('//body')
 		item = AfeventItem()
+		city = ["Malmö", "Göteborg", "Stockholm", "Linköping", "Uppsala", "Helsingborg", "Enköping", "Jönköping"]
 
 		title_list = ''.join(divs.xpath('//*[@id="mainContent"]/main/section[3]/div[1]/div[1]/article/h1/text()').extract())
 		date_list = ''.join(divs.xpath('//*[@id="mainContent"]/main/section[3]/div[1]/div[1]/article/span/text()').extract())
@@ -42,6 +49,9 @@ class MySpider(CrawlSpider):
 		item['date'] = date_list
 		item['time'] = time_list
 		item['description'] = description_list
+		for i in range(0, len(city)):
+			if city[i] in item['description']:
+				item['city'] = city[i]
 
 		yield item
 
