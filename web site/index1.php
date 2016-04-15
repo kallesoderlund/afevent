@@ -54,11 +54,12 @@
         ?>
 
        <div class="row content">
-        <div class="sidebar col-md-2 sidenav text-left sidebar-position-fixed">
+        <div class="col-md-2 text-left">
           <div class="panel panel-default">
           <div class="panel-heading">Filter your search</div>
             <div class="panel-body">
           <?php
+            echo "<form>";
             echo '<div class="dropdown">';
             echo '<button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">';
             echo 'City  ';
@@ -74,7 +75,7 @@
             echo '</div>';
             echo '<br>';
             echo '<div class="dropdown">';
-            echo '<button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">';
+            echo '<button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">';
             echo    'Type    ';
             echo    '<span class="caret"></span>';
             echo  '</button>';
@@ -95,7 +96,8 @@
             echo '<br>';
             echo '<br>';
             echo '<button type="button" class="btn btn-success">Filter</button>';
-            echo '<button type="button" class="btn btn-default position-right">Reset</button>';
+            echo '<button class="btn btn-default position-right" type="reset" id="resetFilters">Reset Filters</button>';
+            echo "</form>";
 
             ?>
             </div>
@@ -179,10 +181,16 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="js/bootstrap.min.js"></script>
+    <!-- Changes the viewed value in on the drop down menus when selected -->
     <script> $(".dropdown-menu li a").click(function(){
       $(this).parents(".dropdown").find('.btn').html($(this).text() + ' <span class="caret"></span>');
       $(this).parents(".dropdown").find('.btn').val($(this).data('value'));
       });
     </script>
+    <script>
+      $('#resetFilters').on('click', function () {
+      $('#dropdownCity').button('reset') // button text will be "finished!"
+    })
+</script>
   </body>
 </html>

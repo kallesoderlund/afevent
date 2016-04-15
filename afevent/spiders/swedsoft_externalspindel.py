@@ -18,7 +18,7 @@ class MySpider(CrawlSpider):
 		for div in response.xpath('//div[@class="article-content"]'):
 			item = AfeventItem()
 			item['title'] = div.xpath('//h1[@class="h2 entry-title"]/text()').extract()[i]
-			item['city'] = div.xpath('//*[@id]/div[3]/h2/text()').extract_first()
+			item['city'] = div.xpath('//*[@id]/div[3]/h2/text()').extract()[i]
 			item['venue'] = div.xpath('//*[@id]/div[3]/table/tr[1]/td[2]/text()').extract()[i]
 			origDate = div.xpath('//*[@id]/div[3]/p/text()').extract()[i]
 
