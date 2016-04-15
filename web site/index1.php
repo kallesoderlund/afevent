@@ -60,12 +60,23 @@
             <div class="panel-body">
           <?php
             echo "<form>";
+            // echo '<div class="dropdown">';
+            // echo '<button class="btn btn-primary dropdown-toggle" type="button" id="dropdownCity" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">';
+            // echo 'City  ';
+            // echo    '<span class="caret"></span>';
+            // echo  '</button>';
+            // echo  '<ul class="dropdown-menu" aria-labelledby="dropdownCity">';
+            // for($index = 0; $index <= sizeof($list_cities) - 1; $index++){
+            //   echo '<li><a href="#">';
+            //   echo $list_cities[$index];
+            //   echo '</a></li>';
+            // } 
+            // echo '</ul>';
+            // echo '</div>';
+            echo '<br>';
             echo '<div class="dropdown">';
-            echo '<button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">';
-            echo 'City  ';
-            echo    '<span class="caret"></span>';
-            echo  '</button>';
-            echo  '<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">';
+            echo '<button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" id="dropdownCity">City   <span class="caret"></span></button>';
+            echo  '<ul class="dropdown-menu" aria-labelledby="dropdownCit">';
             for($index = 0; $index <= sizeof($list_cities) - 1; $index++){
               echo '<li><a href="#">';
               echo $list_cities[$index];
@@ -73,30 +84,31 @@
             } 
             echo '</ul>';
             echo '</div>';
-            echo '<br>';
-            echo '<div class="dropdown">';
-            echo '<button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">';
-            echo    'Type    ';
-            echo    '<span class="caret"></span>';
-            echo  '</button>';
-            echo  '<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">';
-            echo    '<li><a href="#">Action</a></li>';
-            echo    '<li><a href="#">Another action</a></li>';
-            echo    '<li><a href="#">Something else here</a></li>';
-            echo '</ul>';
-            echo '</div>';
+            // echo '<div class="dropdown">';
+            // echo '<button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">';
+            // echo    'Type    ';
+            // echo    '<span class="caret"></span>';
+            // echo  '</button>';
+            // echo  '<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">';
+            // echo    '<li><a href="#">Action</a></li>';
+            // echo    '<li><a href="#">Another action</a></li>';
+            // echo    '<li><a href="#">Something else here</a></li>';
+            // echo '</ul>';
+            // echo '</div>';
             echo '<br>';
             
             for($index = 0; $index <= sizeof($list_tags) - 1; $index++){
-            echo '<input type="checkbox">';
-            echo $list_tags[$index];
-            echo '<br>';
+            echo '<div class="checkbox">'; 
+            echo  '<label><input type="checkbox" value="">';
+            echo    $list_tags[$index];
+            echo  '<label>';
+            echo '</div>';
             }
             echo '<br>';
             echo '<br>';
             echo '<br>';
-            echo '<button type="button" class="btn btn-success">Filter</button>';
-            echo '<button class="btn btn-default position-right" type="reset" id="resetFilters">Reset Filters</button>';
+            echo '<button type="button" class="btn btn-success" id="filter">Filter</button>';
+            echo '<button class="btn btn-default position-right" type="reset" id="resetFilter">Reset Filters</button>';
             echo "</form>";
 
             ?>
@@ -188,9 +200,14 @@
       });
     </script>
     <script>
-      $('#resetFilters').on('click', function () {
-      $('#dropdownCity').button('reset') // button text will be "finished!"
-    })
-</script>
+    jQuery(function(){
+      jQuery('#resetFilter').click();
+    });
+    </script>
+    <script>
+        $("#resetFilter").on("click", function(){
+         $("#dropdownCity").button("reset")
+        });
+    </script>
   </body>
 </html>
