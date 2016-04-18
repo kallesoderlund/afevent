@@ -40,17 +40,6 @@
         $list_tags = $collection->distinct("tags");
         //$list_cities->sort(array("city"=>1));
 
-        echo '<form method=POST>';
-          echo '<select name="city">';
-          echo '<option value="cities">Select city</option>';
-          for($index = 0; $index <= sizeof($list_cities); $index++){
-          echo "<option value=$list_cities[$index]>$list_cities[$index]</option>";
-          }
-          
-          echo  '</select>';
-          echo '<br>';
-          echo '<input name="filter_search" type="submit">';
-        echo '</form>';
         ?>
 
        <div class="row content">
@@ -84,8 +73,10 @@
             echo '<br>';
             
             for($index = 0; $index <= sizeof($list_tags) - 1; $index++){
-            echo '<div class="checkbox">'; 
-            echo  '<label><input type="checkbox" value="">';
+            echo '<div class="checkboxdiv">'; 
+            echo  '<label><input type="checkbox" value="" class="cBox" id=';
+            echo $list_tags[$index];
+            echo '>';
             echo    $list_tags[$index];
             echo  '<label>';
             echo '</div>';
@@ -112,12 +103,11 @@
                 $today = date("Y-m-d");
                 $cityQuery = array('city' => $city, 'date'=> array('$gte'=>$today));
                 $afterToday=array('date'=> array('$gte'=>$today));
-                //if "Select city" is chosen in drop down menu, select all cities
-                if ($_POST['city'] == 'cities') {
+
                   $query = $collection->find($afterToday);
                   $query->sort(array("date"=>1));
                   foreach ( $query as $current ){
-                    echo '<div class="panel panel-primary" id="eventdiv">';
+                    echo '<div class="panel panel-primary">';
                     echo '<a href="'.$current["url"].'"><div class="panel-heading"><h3 id="title-text">' . $current["title"];
                     echo '</h3></div></a>';
                     echo '<div class="panel-body">';
@@ -141,35 +131,6 @@
                     echo '</div>';
                     echo '</div>';
                     }
-                // select the city corresponding to the drop down menu
-                } else {
-                  $query = $collection->find($cityQuery);
-                  $query->sort(array("date"=>1));
-                  foreach ( $query as $current ){
-                    echo '<div class="panel panel-primary">';
-                    echo '<a href="'.$current["url"].'"><div class="panel-heading"><h3 id="title-text">' . $current["title"];
-                    echo '</h3></div></a>';
-                    echo '<div class="panel-body">';
-                    echo '<strong>City: </strong>' . (!empty($current["city"]) ? $current['city'] : "");
-                    echo "<br>";
-                    echo '<strong>Host: </strong>' . (!empty($current["host"]) ? $current['host'] : "");
-                    echo "<br>";
-                    echo '<strong>Date: </strong>' . (!empty($current["date"]) ? $current['date'] : "");
-                    echo "<br>";
-                    echo '<strong>Time: </strong>' . (!empty($current["time"]) ? $current['time'] : "");
-                    echo "<br>";
-                    echo '<strong>Description: </strong>' . (!empty($current["description"]) ? $current['description'] : "");
-                    echo "<br>";
-                    echo '<strong>Tags: </strong>';
-                    $tags = $current["tags"];
-                    $len=count($tags);
-                    for ($i=0;$i<$len;$i++)
-                      echo $tags[$i] . " ";
-                    echo "<br>";
-                    echo '</div>';
-                    echo '</div>';
-                  }
-                }
               ?>
 
             </div>
@@ -183,24 +144,28 @@
     <script> $(".dropdown-menu li a").click(function(){
       $(this).parents(".dropdown").find('.btn').html($(this).text() + ' <span class="caret"></span>');
       $(this).parents(".dropdown").find('.btn').val($(this).data('value'));
+      $(".panel-primary:not(:contains('" + data('value') + "'))").hide();
       });
     </script>
     <script>
-    jQuery(function(){
-      jQuery('#resetFilter').click();
-    });
+      $(function() {
+        $("#resetFilter").trigger("click");
+      });
     </script>
     <script>
         $("#resetFilter").on("click", function(){
-         $("#dropdownCity").button("reset")
+        $("#dropdownCity").button("reset")
+        $('.cBox').change();
         });
     </script>
     <script>
-    $('.checkbox').click(function() {
-    if( $(this).is(':checked')) {
-        $("#eventdiv").hide();
-    } else {
-        $("#eventiv").show();
+    $('.cBox').change(function() {
+      var checkID = $(this).attr("id");
+      if( $(this).is(':checked')) {
+        $(".panel-primary:not(:contains('" + checkID + "'))").hide();
+      //$(".panel-primary").hide();
+      } else {
+        $(".panel-primary:not(:contains('" + checkID + "'))").show();
     }
 }); 
     </script>
