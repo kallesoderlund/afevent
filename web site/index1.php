@@ -117,7 +117,7 @@
                   $query = $collection->find($afterToday);
                   $query->sort(array("date"=>1));
                   foreach ( $query as $current ){
-                    echo '<div class="panel panel-primary">';
+                    echo '<div class="panel panel-primary" id="eventdiv">';
                     echo '<a href="'.$current["url"].'"><div class="panel-heading"><h3 id="title-text">' . $current["title"];
                     echo '</h3></div></a>';
                     echo '<div class="panel-body">';
@@ -194,6 +194,15 @@
         $("#resetFilter").on("click", function(){
          $("#dropdownCity").button("reset")
         });
+    </script>
+    <script>
+    $('.checkbox').click(function() {
+    if( $(this).is(':checked')) {
+        $("#eventdiv").hide();
+    } else {
+        $("#eventiv").show();
+    }
+}); 
     </script>
   </body>
 </html>

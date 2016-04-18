@@ -13,16 +13,6 @@ from scrapy.http						import Request
 from scrapy.contrib.spiders 			import CrawlSpider, Rule
 from scrapy.contrib.linkextractors.sgml import SgmlLinkExtractor
 
-# class myItems(scrapy.Item):
-# 	title 		= scrapy.Field()
-# 	city 		= scrapy.Field()
-# 	venue 		= scrapy.Field()
-# 	date 		= scrapy.Field()
-# 	time 		= scrapy.Field()
-# 	description = scrapy.Field()
-# 	host 		= scrapy.Field()
-# 	url 		= scrapy.Field()
-# 	long_description = scrapy.Field()
 
 class MySpider(CrawlSpider):
 	name 		= "afny"
