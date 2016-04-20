@@ -19,60 +19,137 @@
 		</div>
 	</nav>
 
-	<div class="container">
-		<div class="row">
-			<div class="col-sm-3">
-				<div class="sidebar-nav">
-					<div class="navbar navbar-default" role="navigation">
-						<div class="navbar-header">
-							<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-navbar-collapse">
-								<span class="sr-only">Toggle navigation</span>
-								<span class="icon-bar"></span>
-								<span class="icon-bar"></span>
-								<span class="icon-bar"></span>
-							</button>
-							<span class="visible-xs navbar-brand">Sidebar menu</span>
+	<div class="container-fluid text-center"> 
+		<?php
+    // select a database and collection
+		$m = new Mongo();
+		$db = $m->selectDB('eventDB');
+		$collection = new MongoCollection($db, 'events');
+    // list all unique cities in DB
+		$list_cities = $collection->distinct("city");
+		$list_tags = $collection->distinct("tags");
+		sort($list_tags);
+		sort($list_cities);
+    //$list_cities->sort(array("city"=>1));
+		?>
+		<div class="container fluid">
+			<div class="row">
+				<div class="col-sm-3 text-left">
+					<div class="panel panel-default">
+						<div class="panel-heading"><h4>Filter your search</h4></div>
+						<div class="panel-body">
+							<?php
+							echo "<form>";
+							echo '<div class="dropdown">';
+							echo '<button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" id="dropdownCity">City   <span class="caret"></span></button>';
+							echo  '<ul class="dropdown-menu" aria-labelledby="dropdownCity">';
+							for($index = 0; $index <= sizeof($list_cities) - 1; $index++){
+								echo '<li><a href="#">';
+								echo $list_cities[$index];
+								echo '</a></li>';
+							} 
+							echo '</ul>';
+							echo '</div>';
+							echo '<br>';
+							echo '<div class="dropdown">';
+							echo '<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"><span>Keywords </span> <span class="caret"></span></button>';
+
+							echo '<ul class="dropdown-menu">';
+							for($index = 0; $index <= sizeof($list_tags) - 1; $index++){
+								echo '<div class="checkboxdiv">'; 
+								echo  '<label><input type="checkbox" value="" class="cBox" id=';
+								echo $list_tags[$index];
+								echo '> ';
+								echo $list_tags[$index];
+								echo '<label>';
+								echo '</div>';
+							}
+							echo '</ul>';
+							echo '</div>';
+							echo '<br>';
+							echo '<br>';
+							echo '<br>';
+							echo '<button class="btn btn-default position-right" type="reset" id="resetFilter">Reset Filters</button>';
+							echo "</form>";?>
 						</div>
-						<div class="navbar-collapse collapse sidebar-navbar-collapse">
-							<ul class="nav navbar-nav">
-								<li class="active"><a href="#">Menu Item 1</a></li>
-								<li><a href="#">Menu Item 2</a></li>
-								<li class="dropdown">
-									<a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
-									<ul class="dropdown-menu">
-										<li><a href="#">Action</a></li>
-										<li><a href="#">Another action</a></li>
-										<li><a href="#">Something else here</a></li>
-										<li class="divider"></li>
-										<li class="dropdown-header">Nav header</li>
-										<li><a href="#">Separated link</a></li>
-										<li><a href="#">One more separated link</a></li>
-									</ul>
-								</li>
-								<li><a href="#">Menu Item 4</a></li>
-								<li><a href="#">Reviews <span class="badge">1,118</span></a></li>
-							</ul>
-						</div><!--/.nav-collapse -->
 					</div>
 				</div>
-			</div>
-			<div class="col-sm-6">
-				<div class="panel-group">
-					<div class="panel panel-default">
-						<div class="panel-heading">Panel Header</div>
-						<div class="panel-body">Panel Content</div>
-					</div>
-					<div class="panel panel-default">
-						<div class="panel-heading">Panel Header</div>
-						<div class="panel-body">Panel Content</div>
-					</div>
-					<div class="panel panel-default">
-						<div class="panel-heading">Panel Header</div>
-						<div class="panel-body">Panel Content</div>
+				<div class="col-sm-8 text-left"> 
+					<div class="panel-group">
+						<?php
+        // define variables and set to empty values
+						$title = $host = $city = $date = $url = $time = "";
+						$city = (isset($_POST['city']) ? $_POST['city'] : '');
+						$today = date("Y-m-d");
+						$cityQuery = array('city' => $city, 'date'=> array('$gte'=>$today));
+						$afterToday=array('date'=> array('$gte'=>$today));
+
+						$query = $collection->find($afterToday);
+						$query->sort(array("date"=>1));
+						foreach ( $query as $current ){
+							echo '<div class="panel panel-primary">';
+							echo '<a href="'.$current["url"].'"><div class="panel-heading"><h3 id="title-text">' . $current["title"];
+							echo '</h3></div></a>';
+							echo '<div class="panel-body">';
+							echo '<strong>City: </strong>' . (!empty($current["city"]) ? $current['city'] : "");
+							echo "<br>";
+							echo '<strong>Host: </strong>' . (!empty($current["host"]) ? $current['host'] : "");
+							echo "<br>";
+							echo '<strong>Date: </strong>' . (!empty($current["date"]) ? $current['date'] : "");
+							echo "<br>";
+							echo '<strong>Time: </strong>' . (!empty($current["time"]) ? $current['time'] : "");
+							echo "<br>";
+							echo '<strong>Description: </strong>' . (!empty($current["description"]) ? $current['description'] : "");
+							echo "<br>";
+							echo '<strong>Tags: </strong>'; 
+							$tags = $current["tags"];
+							$len=count($tags);
+							for ($i=0;$i<$len;$i++)
+								echo $tags[$i] . " ";
+							echo '</pre>';
+							echo "<br>";
+							echo '</div>';
+							echo '</div>';
+						}
+						?>
 					</div>
 				</div>
 			</div>
 		</div>
-	</div>
+		<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+		<!-- Include all compiled plugins (below), or include individual files as needed -->
+		<script src="js/bootstrap.min.js"></script>
+		<!-- Changes the viewed value in on the drop down menus when selected -->
+		<script> $(".dropdown-menu li a").click(function(){
+			$(this).parents(".dropdown").find('.btn').html($(this).text() + ' <span class="caret"></span>');
+			$(this).parents(".dropdown").find('.btn').val($(this).data('value'));
+			$(".panel-primary:not(:contains('"  + $(this).text() + "'))").hide();
+			$(".panel-primary:contains('"  +'City: '+ $(this).text() + "')").show();
+		});
+	</script>
+	<script>
+		$(function() {
+			$("#resetFilter").trigger("click");
+		});
+	</script>
+	<script>
+		$("#resetFilter").on("click", function(){
+			$("#dropdownCity").button("reset")
+			$('.cBox').change();
+		});
+	</script>
+	<script>
+		$('.cBox').change(function() {
+			var checkID = $(this).attr("id");
+			if( $(this).is(':checked')) {
+				$(".panel-primary:not(:contains('" + checkID + "'))").hide();
+        //$(".panel-primary").hide();
+    } else {
+    	$(".panel-primary:not(:contains('" + checkID + "'))").show();
+    } 
+}); 
+</script>
+
 </body>
 </html>
