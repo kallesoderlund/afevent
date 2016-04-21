@@ -41,7 +41,7 @@ class MySpider(CrawlSpider):
 
 		for div in response.xpath('//li[@class="conference vevent"]'):
 			item = AfeventItem()
-			item['city'] = div.xpath('.//p[@class="location"]/a[3]/text()').extract_first()
+			item['location'] = div.xpath('.//p[@class="location"]/a[3]/text()').extract_first()
 			item['title'] = div.xpath('//h4/a/text()').extract()[i]
 			item['date'] = div.xpath('//p[@class="date"]/abbr[1]/@title').extract()[i]
 			item['host'] = ''

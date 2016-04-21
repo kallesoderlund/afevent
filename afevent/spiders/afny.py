@@ -24,7 +24,7 @@ class MySpider(CrawlSpider):
 	def parser(self, response):
 		divs = response.xpath('//body')
 		item = AfeventItem()
-		city = ["Malmö", "Göteborg", "Stockholm", "Linköping", "Uppsala", "Helsingborg", "Enköping", "Jönköping"]
+		location = ["Malmö", "Göteborg", "Stockholm", "Linköping", "Uppsala", "Helsingborg", "Enköping", "Jönköping"]
 
 		title_list = ''.join(divs.xpath('//*[@id="mainContent"]/main/section[3]/div[1]/div[1]/article/h1/text()').extract())
 		date_list = ''.join(divs.xpath('//*[@id="mainContent"]/main/section[3]/div[1]/div[1]/article/span/text()').extract())
@@ -39,9 +39,9 @@ class MySpider(CrawlSpider):
 		item['date'] = date_list
 		item['time'] = time_list
 		item['description'] = description_list
-		for i in range(0, len(city)):
-			if city[i] in item['description']:
-				item['city'] = city[i]
+		for i in range(0, len(location)):
+			if location[i] in item['description']:
+				item['location'] = location[i]
 
 		yield item
 

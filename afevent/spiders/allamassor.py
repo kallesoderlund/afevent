@@ -28,10 +28,10 @@ class MySpider(CrawlSpider):
 			item['type'] = "Fair"
 
 	#Remove unwanted characters
-			city = div.xpath('//span[@class="ort"]/text()').extract()[i]
+			location = div.xpath('//span[@class="ort"]/text()').extract()[i]
 			for char in " | ":
-				city = city.replace(char, "")
-				item['city'] = city
+				location = location.replace(char, "")
+				item['location'] = location
 
 	#The following code changes the format of the date
 			origDate = div.xpath ('//span[@class="date"]/text()').extract()[i]

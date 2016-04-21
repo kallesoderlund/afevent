@@ -46,7 +46,7 @@ class AfeventPipeline(object):
           if not data:
               valid = False
               raise DropItem("Missing {0}!".format(data))
-        item['city'] = item['city'].strip()
+        item['location'] = item['location'].strip()
         return item
 
     	

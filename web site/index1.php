@@ -25,12 +25,12 @@
     $m = new Mongo();
     $db = $m->selectDB('eventDB');
     $events = new MongoCollection($db, 'events');
-    // list all unique cities in DB
-    $list_cities = $events->distinct("city");
+    // list all unique locations in DB
+    $list_locations = $events->distinct("location");
     $list_tags = $events->distinct("tags");
     sort($list_tags);
-    sort($list_cities);
-    //$list_cities->sort(array("city"=>1));
+    sort($list_locations);
+    //$list_locations->sort(array("location"=>1));
     ?>
     <div class="container fluid">
       <div class="row">
@@ -42,11 +42,11 @@
                 <div class="col-sm-8">
                   <?php
                   echo '<div class="dropdown">';
-                  echo '<button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" id="dropdownCity">City   <span class="caret"></span></button>';
-                  echo  '<ul class="dropdown-menu" aria-labelledby="dropdownCity">';
-                  for($index = 0; $index <= sizeof($list_cities) - 1; $index++){
+                  echo '<button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" id="dropdownLocation">Location   <span class="caret"></span></button>';
+                  echo  '<ul class="dropdown-menu" aria-labelledby="dropdownLocation">';
+                  for($index = 0; $index <= sizeof($list_locations) - 1; $index++){
                     echo '<li><a href="#">';
-                    echo $list_cities[$index];
+                    echo $list_locations[$index];
                     echo '</a></li>';
                   } 
                   echo '</ul>';
@@ -85,10 +85,10 @@
             <div class="panel-group">
               <?php
         // define variables and set to empty values
-              $title = $host = $city = $date = $url = $time = "";
-              $city = (isset($_POST['city']) ? $_POST['city'] : '');
+              $title = $host = $location = $date = $url = $time = "";
+              $location = (isset($_POST['location']) ? $_POST['location'] : '');
               $today = date("Y-m-d");
-              $cityQuery = array('city' => $city, 'date'=> array('$gte'=>$today));
+              $locationQuery = array('location' => $location, 'date'=> array('$gte'=>$today));
               $afterToday=array('date'=> array('$gte'=>$today));
 
               $query = $events->find($afterToday);
@@ -98,7 +98,7 @@
                 echo '<a href="'.$current["url"].'"><div class="panel-heading"><h3 id="title-text">' . $current["title"];
                 echo '</h3></div></a>';
                 echo '<div class="panel-body">';
-                echo '<strong>City: </strong>' . (!empty($current["city"]) ? $current['city'] : "");
+                echo '<strong>Location: </strong>' . (!empty($current["location"]) ? $current['location'] : "");
                 echo "<br>";
                 echo '<strong>Host: </strong>' . (!empty($current["host"]) ? $current['host'] : "");
                 echo "<br>";
@@ -133,7 +133,7 @@
         $(this).parents(".dropdown").find('.btn').html($(this).text() + ' <span class="caret"></span>');
         $(this).parents(".dropdown").find('.btn').val($(this).data('value'));
         $(".panel-primary:not(:contains('"  + $(this).text() + "'))").hide();
-        $(".panel-primary:contains('"  +'City: '+ $(this).text() + "')").show();
+        $(".panel-primary:contains('"  +'Location: '+ $(this).text() + "')").show();
       });
     </script>
     <script>
@@ -143,7 +143,7 @@
     </script>
     <script>
       $("#resetFilter").on("click", function(){
-        $("#dropdownCity").button("reset")
+        $("#dropdownLocation").button("reset")
         $('.cBox').change();
       });
     </script>

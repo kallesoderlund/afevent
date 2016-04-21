@@ -25,7 +25,7 @@ class MySpider(CrawlSpider):
 		
 		#Store data into lists
 			item['title'] = div.xpath('//*[@class ="h2 entry-title"]/text()').extract()[i]
-			item['city'] = div.xpath('//*[@id]/div[3]/h2/text()').extract()[i]
+			item['location'] = div.xpath('//*[@id]/div[3]/h2/text()').extract()[i]
 			item['venue'] = div.xpath('//*[@id]/div[3]/table/tr[1]/td[2]/text()[1]').extract()[i]
 			#the following code changes the format of the date
 			origDate = div.xpath ('//*[@id]/div[3]/p/text()').extract()[i]

@@ -34,7 +34,7 @@ class MySpider(CrawlSpider):
 		for div in divs:
 
 			item = AfeventItem()
-			item['city'] = div.xpath('./td[4]/text()').extract_first().strip()
+			item['location'] = div.xpath('./td[4]/text()').extract_first().strip()
 			item['title'] = div.xpath('./td/div[@class = "event-title"]/span[@class = "link"]/text()').extract()[0]
 			item['description'] = div.xpath('./td[3]/div[2]/div//text()').extract()[0]
 			date_time = div.xpath('./td[1]/span/text()').extract()[0].split(' ')
