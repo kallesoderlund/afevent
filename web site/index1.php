@@ -24,10 +24,10 @@
     // select a database and collection
     $m = new Mongo();
     $db = $m->selectDB('eventDB');
-    $collection = new MongoCollection($db, 'events');
+    $events = new MongoCollection($db, 'events');
     // list all unique cities in DB
-    $list_cities = $collection->distinct("city");
-    $list_tags = $collection->distinct("tags");
+    $list_cities = $events->distinct("city");
+    $list_tags = $events->distinct("tags");
     sort($list_tags);
     sort($list_cities);
     //$list_cities->sort(array("city"=>1));
@@ -58,15 +58,17 @@
                   //echo '</div>';
                   
                   echo '<ul class="dropdown-menu">';
+                  echo '<div class="container width="auto">';
                   for($index = 0; $index <= sizeof($list_tags) - 1; $index++){
                     echo '<div class="checkboxdiv">'; 
                     echo  '<label><input type="checkbox" value="" class="cBox" id=';
                     echo $list_tags[$index];
                     echo '> ';
-                    echo $list_tags[$index];
+                    echo $list_tags[$index] . count($list_tags[$index]);
                     echo '<label>';
                     echo '</div>';
                   }
+                  echo '</div>';
                   echo '</ul>';
                   echo '</div>';
                   echo '</div>';
@@ -89,7 +91,7 @@
               $cityQuery = array('city' => $city, 'date'=> array('$gte'=>$today));
               $afterToday=array('date'=> array('$gte'=>$today));
 
-              $query = $collection->find($afterToday);
+              $query = $events->find($afterToday);
               $query->sort(array("date"=>1));
               foreach ( $query as $current ){
                 echo '<div class="panel panel-primary">';
@@ -108,9 +110,10 @@
                 echo "<br>";
                 echo '<strong>Tags: </strong>'; 
                 $tags = $current["tags"];
+                sort($tags);
                 $len=count($tags);
                 for ($i=0;$i<$len;$i++)
-                  echo $tags[$i] . " ";
+                  echo '<u>' . $tags[$i] . '</u>, ';
                 echo '</pre>';
                 echo "<br>";
                 echo '</div>';

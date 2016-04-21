@@ -22,7 +22,7 @@ class AfeventPipeline(object):
         db = connection[settings['MONGODB_DB']]
         self.collection = db[settings['MONGODB_COLLECTION']]
         #keyword_file = open("\Users\A503482\Exjobb\afevent\afevent\keywords.json")
-        with open("keywords.json") as json_file:
+        with open("keywords_final.json") as json_file:
             global json_data
             json_data = json.load(json_file)
 
@@ -40,8 +40,8 @@ class AfeventPipeline(object):
 
             for level1_word in json_data:
                 for level2_word in json_data[level1_word]:
-                    if level2_word in description or level2_word in title:
-                        if level2_word not in item['tags']:
+                    if level2_word.lower() in description or level2_word.lower() in title:
+                        if level1_word not in item['tags']:
                             item['tags'].append(level1_word)
             print item['tags']
             self.collection.insert(dict(item))
