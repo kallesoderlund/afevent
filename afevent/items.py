@@ -21,3 +21,4 @@ class AfeventItem(scrapy.Item):
     time = Field()
     description = Field()
     tags = Field()
+    type = Field()
