@@ -21,12 +21,9 @@ class AfeventPipeline(object):
         )
         db = connection[settings['MONGODB_DB']]
         self.collection = db[settings['MONGODB_COLLECTION']]
-        #keyword_file = open("\Users\A503482\Exjobb\afevent\afevent\keywords.json")
         with open("keywords_final.json") as json_file:
             global json_data
             json_data = json.load(json_file)
-
-
 
         
     def process_item(self, item, spider):
@@ -36,7 +33,6 @@ class AfeventPipeline(object):
             description = item['description'].lower()
             title = item['title'].lower()
             item['tags'] = []
-            #keywords = ["fastighet", "commerce", "automatic", "industri", "process", "autmation", "student", "ingenjor", "skog", "digital", "infrastruktur", "it", "samhallsbyggnad", "fisksas"]
 
             for level1_word in json_data:
                 for level2_word in json_data[level1_word]:
