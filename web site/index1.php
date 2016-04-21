@@ -58,7 +58,6 @@
                   echo '<div class="col-sm-8">';
                   echo '<div class="dropdown">';
                   echo '<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"><span>Type </span> <span class="caret"></span></button>';
-                  //echo '</div>';
                   
                   echo '<ul class="dropdown-menu">';
                   echo '<div class="container width="auto">';
@@ -75,13 +74,11 @@
                   echo '</ul>';
                   echo '</div>';
                   echo '</div>';
-                  echo '</div>';
 
                   #Dropdown for type of event
                   echo '<div class="col-sm-8">';
                   echo '<div class="dropdown">';
                   echo '<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"><span>Keywords </span> <span class="caret"></span></button>';
-                  //echo '</div>';
                   
                   echo '<ul class="dropdown-menu">';
                   echo '<div class="container width="auto">';
@@ -99,6 +96,7 @@
                   echo '</div>';
                   echo '</div>';
                   echo '</div>';
+
                   echo '<br>';
                   echo '<br>';
                   echo '<br>';
