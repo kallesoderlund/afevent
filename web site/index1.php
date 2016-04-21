@@ -28,10 +28,12 @@
     // list all unique locations in DB
     $list_locations = $events->distinct("location");
     $list_tags = $events->distinct("tags");
+    $list_types = $events->distinct("type");
     sort($list_tags);
     sort($list_locations);
-    //$list_locations->sort(array("location"=>1));
+    sort($list_types);
     ?>
+
     <div class="container fluid">
       <div class="row">
         <div class="col-sm-3 text-left">
@@ -52,6 +54,30 @@
                   echo '</ul>';
                   echo '</div>';
                   echo '</div>';
+                  #Dropdown for tag of the events
+                  echo '<div class="col-sm-8">';
+                  echo '<div class="dropdown">';
+                  echo '<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"><span>Type </span> <span class="caret"></span></button>';
+                  //echo '</div>';
+                  
+                  echo '<ul class="dropdown-menu">';
+                  echo '<div class="container width="auto">';
+                  for($index = 0; $index <= sizeof($list_types) - 1; $index++){
+                    echo '<div class="checkboxdiv">'; 
+                    echo  '<label><input type="checkbox" value="" class="cBox" id=';
+                    echo $list_types[$index];
+                    echo '> ';
+                    echo $list_types[$index] . count($list_types[$index]);
+                    echo '<label>';
+                    echo '</div>';
+                  }
+                  echo '</div>';
+                  echo '</ul>';
+                  echo '</div>';
+                  echo '</div>';
+                  echo '</div>';
+
+                  #Dropdown for type of event
                   echo '<div class="col-sm-8">';
                   echo '<div class="dropdown">';
                   echo '<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"><span>Keywords </span> <span class="caret"></span></button>';
@@ -108,12 +134,21 @@
                 echo "<br>";
                 echo '<strong>Description: </strong>' . (!empty($current["description"]) ? $current['description'] : "");
                 echo "<br>";
-                echo '<strong>Tags: </strong>'; 
+                echo '<strong>Tags: </strong>' ; 
                 $tags = $current["tags"];
                 sort($tags);
                 $len=count($tags);
                 for ($i=0;$i<$len;$i++)
                   echo '<u>' . $tags[$i] . '</u>, ';
+
+                echo "<br>";
+                echo '<strong>Type: </strong>' ; 
+                $type = $current["type"];
+                sort($type);
+                $len=count($type);
+                for ($i=0;$i<$len;$i++)
+                  echo $type[$i] . " ";
+                echo "<br>";
                 echo '</pre>';
                 echo "<br>";
                 echo '</div>';

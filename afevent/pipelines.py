@@ -25,6 +25,9 @@ class AfeventPipeline(object):
             global json_data
             json_data = json.load(json_file)
 
+        with open("type.json") as json_file:
+            global json_data2
+            json_data2 = json.load(json_file)
         
     def process_item(self, item, spider):
         if self.collection.find_one({'url': item['url']}):
@@ -33,13 +36,19 @@ class AfeventPipeline(object):
             description = item['description'].lower()
             title = item['title'].lower()
             item['tags'] = []
+            item['type'] = []
+
+            for type1_word in json_data2:
+                for type2_word in json_data2[type1_word]:
+                    if type2_word.lower() in description or type2_word.lower() in title:
+                        if type1_word not in item['type']:
+                            item['type'].append(type1_word)
 
             for level1_word in json_data:
                 for level2_word in json_data[level1_word]:
                     if level2_word.lower() in description or level2_word.lower() in title:
                         if level1_word not in item['tags']:
                             item['tags'].append(level1_word)
-            print item['tags']
             self.collection.insert(dict(item))
 
         for data in item:

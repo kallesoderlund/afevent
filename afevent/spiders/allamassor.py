@@ -25,7 +25,7 @@ class MySpider(CrawlSpider):
 			url = div.xpath('.//a[@href]/@href').extract()[0]
 			url = 'http://allamassor.se/' + url
 			item['url'] = url
-			item['type'] = "Fair"
+			#item['type'] = "Fair"
 
 	#Remove unwanted characters
 			location = div.xpath('//span[@class="ort"]/text()').extract()[i]
