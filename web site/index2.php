@@ -57,11 +57,9 @@
 							echo '<ul class="dropdown-menu">';
 							for($index = 0; $index <= sizeof($list_tags) - 1; $index++){
 								echo '<div class="checkboxdiv">'; 
-								echo  '<label><input type="checkbox" value="" class="cBox" id=';
+								echo  '<label><input type="checkbox" value="" class="cBox" id=' . $list_tags[$index] .'> ';
 								echo $list_tags[$index];
-								echo '> ';
-								echo $list_tags[$index];
-								echo '<label>';
+								echo '</label>';
 								echo '</div>';
 							}
 							echo '</ul>';
@@ -71,6 +69,7 @@
 							echo '<br>';
 							echo '<button class="btn btn-default position-right" type="reset" id="resetFilter">Reset Filters</button>';
 							echo "</form>";?>
+							<p id="checkboxCount"></p>
 						</div>
 					</div>
 				</div>
@@ -141,8 +140,13 @@
 	</script>
 	<script>
 		$('.cBox').change(function() {
-			//var cBoxLen = $('.cBox.filter(":checked")').lenght;
-			var checkID = $(this).attr("id");
+			//var $b = $('input[type=checkbox]');
+			// var $cBoxLen = $(":checkbox").filter(":checked").length
+			// $('#checkboxCount').text($cBoxLen);
+			 var checkID = $(this).attr("id");
+			 //$(".panel-primary:contains('" + checkID + "'))").hide();
+			// if ($checkboxCount == 0) {}
+			console.log(checkID);
 			if( $(this).is(':checked')) {
 				$(".panel-primary:visible:not(:contains('" + checkID + "'))").hide();
     } else{
