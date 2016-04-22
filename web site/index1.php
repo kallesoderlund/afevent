@@ -60,17 +60,18 @@
                   echo '<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"><span>Type </span> <span class="caret"></span></button>';
                   
                   echo '<ul class="dropdown-menu">';
-                  echo '<div class="container width="auto">';
+                  
                   for($index = 0; $index <= sizeof($list_types) - 1; $index++){
+                    $type_count = ($events->count(array('tags'=>$list_tags[$index])));
                     echo '<div class="checkboxdiv">'; 
                     echo  '<label><input type="checkbox" value="" class="cBox" id=';
                     echo $list_types[$index];
                     echo '> ';
-                    echo $list_types[$index] . count($list_types[$index]);
+                    echo $list_types[$index] . ' (' . $type_count . ')';
                     echo '<label>';
                     echo '</div>';
                   }
-                  echo '</div>';
+                  
                   echo '</ul>';
                   echo '</div>';
                   echo '</div>';
@@ -81,17 +82,18 @@
                   echo '<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"><span>Keywords </span> <span class="caret"></span></button>';
                   
                   echo '<ul class="dropdown-menu">';
-                  echo '<div class="container width="auto">';
+                  
                   for($index = 0; $index <= sizeof($list_tags) - 1; $index++){
+                    $tags_count = ($events->count(array('tags'=>$list_tags[$index])));
                     echo '<div class="checkboxdiv">'; 
                     echo  '<label><input type="checkbox" value="" class="cBox" id=';
                     echo $list_tags[$index];
                     echo '> ';
-                    echo $list_tags[$index] . count($list_tags[$index]);
-                    echo '<label>';
+                    echo $list_tags[$index] . ' (' . $tags_count . ')';
+                    echo '</label>';
                     echo '</div>';
                   }
-                  echo '</div>';
+                  
                   echo '</ul>';
                   echo '</div>';
                   echo '</div>';
@@ -105,92 +107,110 @@
                 </div>
               </div>
             </div>
-          <div class="col-sm-8 text-left"> 
-            <div class="panel-group">
-              <?php
+            <div class="col-sm-8 text-left"> 
+              <div class="panel-group">
+                <?php
         // define variables and set to empty values
-              $title = $host = $location = $date = $url = $time = "";
-              $location = (isset($_POST['location']) ? $_POST['location'] : '');
-              $today = date("Y-m-d");
-              $locationQuery = array('location' => $location, 'date'=> array('$gte'=>$today));
-              $afterToday=array('date'=> array('$gte'=>$today));
+                $title = $host = $location = $date = $url = $time = "";
+                $location = (isset($_POST['location']) ? $_POST['location'] : '');
+                $today = date("Y-m-d");
+                $locationQuery = array('location' => $location, 'date'=> array('$gte'=>$today));
+                $afterToday=array('date'=> array('$gte'=>$today));
 
-              $query = $events->find($afterToday);
-              $query->sort(array("date"=>1));
-              foreach ( $query as $current ){
-                echo '<div class="panel panel-primary">';
-                echo '<a href="'.$current["url"].'"><div class="panel-heading"><h3 id="title-text">' . $current["title"];
-                echo '</h3></div></a>';
-                echo '<div class="panel-body">';
-                echo '<strong>Location: </strong>' . (!empty($current["location"]) ? $current['location'] : "");
-                echo "<br>";
-                echo '<strong>Host: </strong>' . (!empty($current["host"]) ? $current['host'] : "");
-                echo "<br>";
-                echo '<strong>Date: </strong>' . (!empty($current["date"]) ? $current['date'] : "");
-                echo "<br>";
-                echo '<strong>Time: </strong>' . (!empty($current["time"]) ? $current['time'] : "");
-                echo "<br>";
-                echo '<strong>Description: </strong>' . (!empty($current["description"]) ? $current['description'] : "");
-                echo "<br>";
-                echo '<strong>Tags: </strong>' ; 
-                $tags = $current["tags"];
-                sort($tags);
-                $len=count($tags);
-                for ($i=0;$i<$len;$i++)
-                  echo '<u>' . $tags[$i] . '</u>, ';
+                $query = $events->find($afterToday);
+                $query->sort(array("date"=>1));
+                foreach ( $query as $current ){
+                  echo '<div class="panel panel-primary">';
+                  echo '<a href="'.$current["url"].'"><div class="panel-heading"><h3 id="title-text">' . $current["title"];
+                  echo '</h3></div></a>';
+                  echo '<div class="panel-body">';
+                  echo '<strong>Location: </strong>' . (!empty($current["location"]) ? $current['location'] : "");
+                  echo "<br>";
+                  echo '<strong>Host: </strong>' . (!empty($current["host"]) ? $current['host'] : "");
+                  echo "<br>";
+                  echo '<strong>Date: </strong>' . (!empty($current["date"]) ? $current['date'] : "");
+                  echo "<br>";
+                  echo '<strong>Time: </strong>' . (!empty($current["time"]) ? $current['time'] : "");
+                  echo "<br>";
+                  echo '<strong>Description: </strong>' . (!empty($current["description"]) ? $current['description'] : "");
+                  echo "<br>";
+                  echo '<strong>Tags: </strong>' ; 
+                  $tags = $current["tags"];
+                  sort($tags);
+                  $len=count($tags);
+                  for ($i=0;$i<$len;$i++)
+                    echo '<u>' . $tags[$i] . '</u>, ';
 
-                echo "<br>";
-                echo '<strong>Type: </strong>' ; 
-                $type = $current["type"];
-                sort($type);
-                $len=count($type);
-                for ($i=0;$i<$len;$i++)
-                  echo $type[$i] . " ";
-                echo "<br>";
-                echo '</pre>';
-                echo "<br>";
-                echo '</div>';
-                echo '</div>';
-              }
-              ?>
+                  echo "<br>";
+                  echo '<strong>Type: </strong>' ; 
+                  $type = $current["type"];
+                  sort($type);
+                  $len=count($type);
+                  for ($i=0;$i<$len;$i++)
+                    echo $type[$i] . " ";
+                  echo "<br>";
+                  echo '</pre>';
+                  echo "<br>";
+                  echo '</div>';
+                  echo '</div>';
+                }
+                ?>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-      <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-      <!-- Include all compiled plugins (below), or include individual files as needed -->
-      <script src="js/bootstrap.min.js"></script>
-      <!-- Changes the viewed value in on the drop down menus when selected -->
-      <script> $(".dropdown-menu li a").click(function(){
-        $(this).parents(".dropdown").find('.btn').html($(this).text() + ' <span class="caret"></span>');
-        $(this).parents(".dropdown").find('.btn').val($(this).data('value'));
-        $(".panel-primary:not(:contains('"  + $(this).text() + "'))").hide();
-        $(".panel-primary:contains('"  +'Location: '+ $(this).text() + "')").show();
+        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <!-- Include all compiled plugins (below), or include individual files as needed -->
+        <script src="js/bootstrap.min.js"></script>
+        <!-- Changes the viewed value in on the drop down menus when selected -->
+        <script> $(".dropdown-menu li a").click(function(){
+          $(this).parents(".dropdown").find('.btn').html($(this).text() + ' <span class="caret"></span>');
+          $(this).parents(".dropdown").find('.btn').val($(this).data('value'));
+          $(".panel-primary:not(:contains('"  + $(this).text() + "'))").hide();
+          $(".panel-primary:contains('"  +'Location: '+ $(this).text() + "')").show();
+        });
+      </script>
+      <script>
+        $(function() {
+          $("#resetFilter").trigger("click");
+        });
+      </script>
+      <script>
+        $("#resetFilter").on("click", function(){
+          $("#dropdownLocation").button("reset")
+        $('.cBox').prop('checked', false); // Unchecks it
+        countCheckedCheckboxes = 0;
+        $('.panel-primary').show();
       });
     </script>
     <script>
-      $(function() {
-        $("#resetFilter").trigger("click");
+      $(document).ready(function(){
+        var $checkboxes = $('[type="checkbox"]');
+        $('.cBox').change(function() {
+          console.log('nytt')
+          var countCheckedCheckboxes = $checkboxes.filter(':checked').length;
+          console.log(countCheckedCheckboxes);
+          $('input[type=checkbox]').each(function () {
+            var checkID = $(this).attr("id");
+            $(".panel-primary:not(:contains('" + checkID + "'))").hide();
+        //console.log(checkID);
       });
-    </script>
-    <script>
-      $("#resetFilter").on("click", function(){
-        $("#dropdownLocation").button("reset")
-        $('.cBox').change();
-      });
-    </script>
-    <script>
-      $('.cBox').change(function() {
-        var checkID = $(this).attr("id");
-        if( $(this).is(':checked')) {
-          $(".panel-primary:not(:contains('" + checkID + "'))").hide();
-        //$(".panel-primary").hide();
-      } else {
-        $(".panel-primary:not(:contains('" + checkID + "'))").show();
-      } 
-    }); 
-  </script>
+          $('input[type=checkbox]').each(function () {
+            var checkID = $(this).attr("id");
+            if( $(this).is(':checked')) {
+              console.log(checkID + " is checked");
+              $(".panel-primary:contains('" +checkID+ "')").show();
+              console.log(countCheckedCheckboxes);
+            };
+            if (countCheckedCheckboxes == 0){
+              $('.panel-primary').show();
+            }
 
-</body>
-</html>
+          });
+        });
+      });
+    </script>
+
+  </body>
+  </html>

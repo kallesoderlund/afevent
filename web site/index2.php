@@ -57,7 +57,7 @@
 							echo '<ul class="dropdown-menu">';
 							for($index = 0; $index <= sizeof($list_tags) - 1; $index++){
 								echo '<div class="checkboxdiv">'; 
-								echo  '<label><input type="checkbox" value="" class="cBox" id=';
+								echo  '<label><input type="checkbox" value="" data-keyword=' . $list_tags[$index] .' class="cBox" id=';
 								echo $list_tags[$index];
 								echo '> ';
 								echo $list_tags[$index];
@@ -140,16 +140,21 @@
 		});
 	</script>
 	<script>
-		$('.cBox').change(function() {
-			//var cBoxLen = $('.cBox.filter(":checked")').lenght;
-			var checkID = $(this).attr("id");
-			if( $(this).is(':checked')) {
-				$(".panel-primary:visible:not(:contains('" + checkID + "'))").hide();
-    } else{
-    	$(".panel-primary:not(:contains('" + checkID + "'))").show();
-    }
-}); 
-</script>
+		$(document).ready(function(){
+			$('.cBox').change(function() {
+			//$('.panel-primary').hide();
+			$('input[type=checkbox]').each(function () {
+				var checkID = $(this).attr("id");
+				$(".panel-primary:not(:contains('" + checkID + "'))").hide();
+				
+				if( $(this).is(':checked')) {
+					$(".panel-primary:contains('" + checkID + "')").show();
+					console.log(checkID);
+				};
+			});
+		});
+		});
+	</script>
 
 </body>
 </html>
