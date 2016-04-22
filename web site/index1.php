@@ -66,7 +66,7 @@
                     echo  '<label><input type="checkbox" value="" class="cBox" id=';
                     echo $list_types[$index];
                     echo '> ';
-                    echo $list_types[$index] . count($list_types[$index]);
+                    echo $list_types[$index];
                     echo '<label>';
                     echo '</div>';
                   }
@@ -87,7 +87,7 @@
                     echo  '<label><input type="checkbox" value="" class="cBox" id=';
                     echo $list_tags[$index];
                     echo '> ';
-                    echo $list_tags[$index] . count($list_tags[$index]);
+                    echo $list_tags[$index];
                     echo '<label>';
                     echo '</div>';
                   }
