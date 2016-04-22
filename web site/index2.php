@@ -141,13 +141,13 @@
 	</script>
 	<script>
 		$('.cBox').change(function() {
+			//var cBoxLen = $('.cBox.filter(":checked")').lenght;
 			var checkID = $(this).attr("id");
 			if( $(this).is(':checked')) {
-				$(".panel-primary:not(:contains('" + checkID + "'))").hide();
-        //$(".panel-primary").hide();
-    } else {
+				$(".panel-primary:visible:not(:contains('" + checkID + "'))").hide();
+    } else{
     	$(".panel-primary:not(:contains('" + checkID + "'))").show();
-    } 
+    }
 }); 
 </script>
 

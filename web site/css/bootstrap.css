@@ -3571,9 +3571,9 @@ tbody.collapse.in {
 }
 .dropdown-menu > li > a:hover,
 .dropdown-menu > li > a:focus {
-  color: #262626;
   text-decoration: none;
-  background-color: #f5f5f5;
+  background-color: rgb(51, 122, 183);
+  color: white;
 }
 .dropdown-menu > .active > a,
 .dropdown-menu > .active > a:hover,
@@ -6778,3 +6778,14 @@ button.close {
 /*# sourceMappingURL=bootstrap.css.map */
 #header-text {color: white;}
 #title-text {color:white;}
+
+.checkboxdiv {
+  min-width: 420px;
+  padding-left: 5px;
+  padding-right: 10px;
+}
+
+.checkboxdiv:hover {
+  background-color: rgb(51, 122, 183);
+  color: white;
+}
