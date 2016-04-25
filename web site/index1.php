@@ -65,7 +65,7 @@
                 echo '</div>';
 
                   #Dropdown for tag of the events
-<<<<<<< HEAD
+
                 echo '<div class="col-sm-8">';
                 echo '<div class="dropdown">';
                 echo '<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"><span>Type </span> <span class="caret"></span></button>';
@@ -80,7 +80,6 @@
                   echo '> ';
                   echo $list_types[$index] . ' (' . $type_count . ')';
                   echo '<label>';
-=======
                   echo '<div class="col-sm-8">';
                   echo '<div class="dropdown">';
                   echo '<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"><span>Type </span> <span class="caret"></span></button>';
@@ -120,7 +119,6 @@
                   echo '</div>';
                   echo '</ul>';
                   echo '</div>';
->>>>>>> origin/master
                   echo '</div>';
                 }
 
@@ -228,20 +226,15 @@
           $(document).ready(function(){
             var $checkboxes = $('[type="checkbox"]');
             $('.cBox').change(function() {
-              console.log('nytt')
               var countCheckedCheckboxes = $checkboxes.filter(':checked').length;
-              console.log(countCheckedCheckboxes);
               $('input[type=checkbox]').each(function () {
                 var checkID = $(this).attr("id");
                 $(".panel-primary:not(:contains('" + checkID + "'))").hide();
-          //console.log(checkID);
         });
               $('input[type=checkbox]').each(function () {
                 var checkID = $(this).attr("id");
                 if( $(this).is(':checked')) {
-                  console.log(checkID + " is checked");
                   $(".panel-primary:contains('" +checkID+ "')").show();
-                  console.log(countCheckedCheckboxes);
                 };
                 if (countCheckedCheckboxes == 0){
                   $('.panel-primary').show();
