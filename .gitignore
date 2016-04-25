@@ -1,0 +1,5 @@
+afevent/spiders/afspindel.pyc
+afevent/spiders/afny.pyc
+afevent/pipelines.pyc
+*.pyc
+afevent/spiders/dfs2-spindel.pyc

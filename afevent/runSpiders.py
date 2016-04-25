@@ -8,6 +8,7 @@ process.crawl('dfs', domain='natverk.dfs.se')
 process.crawl('swedext', domain='swedsoft.se')
 process.crawl('swedint', domain='swedsoft.se')
 process.crawl('afny', domain='afconsult.com')
-process.crawl('allamassor', domarin='allamassor.se')
+process.crawl('allamassor', domain='allamassor.se')
 process.crawl('stimdi', domain='stimdi.se')
+
 process.start()

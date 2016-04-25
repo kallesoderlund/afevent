@@ -36,25 +36,50 @@
 
     <div class="container fluid">
       <div class="row">
-        <div class="col-sm-3 text-left">
+        <div class="fixed col-sm-3 text-left">
           <div class="panel panel-default">
             <div class="panel-heading"><h4>Filter your search</h4></div>
             <div class="panel-body">
               <div class="row">
-                <div class="col-sm-8">
-                  <?php
-                  echo '<div class="dropdown">';
-                  echo '<button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" id="dropdownLocation">Location   <span class="caret"></span></button>';
-                  echo  '<ul class="dropdown-menu" aria-labelledby="dropdownLocation">';
-                  for($index = 0; $index <= sizeof($list_locations) - 1; $index++){
-                    echo '<li><a href="#">';
-                    echo $list_locations[$index];
-                    echo '</a></li>';
-                  } 
-                  echo '</ul>';
+                <?php
+                  #Dropdown for city of the events
+                echo '<div class="col-sm-8">';
+                echo '<div class="dropdown">';
+                echo '<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"><span>Location </span> <span class="caret"></span></button>';
+
+                echo '<ul class="dropdown-menu scrollable-menu">';
+
+                for($index = 0; $index <= sizeof($list_locations) - 1; $index++){
+                  $location_count = ($events->count(array('location'=>$list_locations[$index])));
+                  echo '<div class="checkboxdiv">'; 
+                  echo  '<label><input type="checkbox" value="" class="cBox" id=';
+                  echo $list_locations[$index];
+                  echo '> ';
+                  echo $list_locations[$index] . ' (' . $location_count . ')';
+                  echo '<label>';
                   echo '</div>';
-                  echo '</div>';
+                }
+
+                echo '</ul>';
+                echo '</div>';
+                echo '</div>';
+
                   #Dropdown for tag of the events
+
+                echo '<div class="col-sm-8">';
+                echo '<div class="dropdown">';
+                echo '<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"><span>Type </span> <span class="caret"></span></button>';
+
+                echo '<ul class="dropdown-menu scrollable-menu">';
+
+                for($index = 0; $index <= sizeof($list_types) - 1; $index++){
+                  $type_count = ($events->count(array('type'=>$list_types[$index])));
+                  echo '<div class="checkboxdiv">'; 
+                  echo  '<label><input type="checkbox" value="" class="cBox" id=';
+                  echo $list_types[$index];
+                  echo '> ';
+                  echo $list_types[$index] . ' (' . $type_count . ')';
+                  echo '<label>';
                   echo '<div class="col-sm-8">';
                   echo '<div class="dropdown">';
                   echo '<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"><span>Type </span> <span class="caret"></span></button>';
@@ -95,16 +120,42 @@
                   echo '</ul>';
                   echo '</div>';
                   echo '</div>';
-                  echo '</div>';
+                }
 
-                  echo '<br>';
-                  echo '<br>';
-                  echo '<br>';
-                  echo '<button class="btn btn-default position-right" type="reset" id="resetFilter">Reset Filters</button>';
-                  ?>
-                </div>
+                echo '</ul>';
+                echo '</div>';
+                echo '</div>';
+
+                #Dropdown for type of event
+                echo '<div class="col-sm-8">';
+                echo '<div class="dropdown">';
+                echo '<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"><span>Keywords </span> <span class="caret"></span></button>';
+
+                echo '<ul class="dropdown-menu scrollable-menu">';
+
+                for($index = 0; $index <= sizeof($list_tags) - 1; $index++){
+                  $tags_count = ($events->count(array('tags'=>$list_tags[$index])));
+                  echo '<div class="checkboxdiv">'; 
+                  echo  '<label><input type="checkbox" value="" class="cBox" id=';
+                  echo $list_tags[$index];
+                  echo '> ';
+                  echo $list_tags[$index] . ' (' . $tags_count . ')';
+                  echo '</label>';
+                  echo '</div>';
+                }
+
+                echo '</ul>';
+                echo '</div>';
+                echo '</div>';
+                echo '</div>';
+
+                echo '<br>';
+                echo '<br>';
+                echo '<button class="btn btn-default position-right" type="reset" id="resetFilter">Reset Filters</button>';
+                ?>
               </div>
             </div>
+          </div>
           <div class="col-sm-8 text-left"> 
             <div class="panel-group">
               <?php
@@ -123,8 +174,6 @@
                 echo '</h3></div></a>';
                 echo '<div class="panel-body">';
                 echo '<strong>Location: </strong>' . (!empty($current["location"]) ? $current['location'] : "");
-                echo "<br>";
-                echo '<strong>Host: </strong>' . (!empty($current["host"]) ? $current['host'] : "");
                 echo "<br>";
                 echo '<strong>Date: </strong>' . (!empty($current["date"]) ? $current['date'] : "");
                 echo "<br>";
@@ -148,7 +197,6 @@
                   echo $type[$i] . " ";
                 echo "<br>";
                 echo '</pre>';
-                echo "<br>";
                 echo '</div>';
                 echo '</div>';
               }
@@ -161,36 +209,41 @@
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
       <!-- Include all compiled plugins (below), or include individual files as needed -->
       <script src="js/bootstrap.min.js"></script>
-      <!-- Changes the viewed value in on the drop down menus when selected -->
-      <script> $(".dropdown-menu li a").click(function(){
-        $(this).parents(".dropdown").find('.btn').html($(this).text() + ' <span class="caret"></span>');
-        $(this).parents(".dropdown").find('.btn').val($(this).data('value'));
-        $(".panel-primary:not(:contains('"  + $(this).text() + "'))").hide();
-        $(".panel-primary:contains('"  +'Location: '+ $(this).text() + "')").show();
-      });
-    </script>
-    <script>
-      $(function() {
-        $("#resetFilter").trigger("click");
-      });
-    </script>
-    <script>
-      $("#resetFilter").on("click", function(){
-        $("#dropdownLocation").button("reset")
-        $('.cBox').change();
-      });
-    </script>
-    <script>
-      $('.cBox').change(function() {
-        var checkID = $(this).attr("id");
-        if( $(this).is(':checked')) {
-          $(".panel-primary:not(:contains('" + checkID + "'))").hide();
-        //$(".panel-primary").hide();
-      } else {
-        $(".panel-primary:not(:contains('" + checkID + "'))").show();
-      } 
-    }); 
-  </script>
+      <script>
+        $(function() {
+          $("#resetFilter").trigger("click");
+        });
+      </script>
+      <script>
+        $("#resetFilter").on("click", function(){
+          $("#dropdownLocation").button("reset")
+            $('.cBox').prop('checked', false); // Unchecks it
+            countCheckedCheckboxes = 0;
+            $('.panel-primary').show();
+          });
+        </script>
+        <script>
+          $(document).ready(function(){
+            var $checkboxes = $('[type="checkbox"]');
+            $('.cBox').change(function() {
+              var countCheckedCheckboxes = $checkboxes.filter(':checked').length;
+              $('input[type=checkbox]').each(function () {
+                var checkID = $(this).attr("id");
+                $(".panel-primary:not(:contains('" + checkID + "'))").hide();
+        });
+              $('input[type=checkbox]').each(function () {
+                var checkID = $(this).attr("id");
+                if( $(this).is(':checked')) {
+                  $(".panel-primary:contains('" +checkID+ "')").show();
+                };
+                if (countCheckedCheckboxes == 0){
+                  $('.panel-primary').show();
+                }
 
-</body>
-</html>
+              });
+            });
+          });
+        </script>
+
+      </body>
+      </html>

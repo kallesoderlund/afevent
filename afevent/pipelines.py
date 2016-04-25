@@ -30,6 +30,7 @@ class AfeventPipeline(object):
             json_data2 = json.load(json_file)
         
     def process_item(self, item, spider):
+        cityDict = {'Gothenburg' : 'Göteborg', 'Göteborg ': 'Göteborg', 'Malmo': 'Malmö', 'Malmö ': 'Malmö', 'Stockholm ': 'Stockholm', 'ÖstersundSenior': 'Östersund'}
         if self.collection.find_one({'url': item['url']}):
             raise DropItem('Item already in DB')
         else:
@@ -50,7 +51,9 @@ class AfeventPipeline(object):
                         if level1_word not in item['tags']:
                             item['tags'].append(level1_word)
 
-
+            for key, value in cityDict.iteritems():
+                if key == item['location']:
+                    item['location'] = value
             self.collection.insert(dict(item))
 
         for data in item:
