@@ -65,6 +65,7 @@
                 echo '</div>';
 
                   #Dropdown for tag of the events
+<<<<<<< HEAD
                 echo '<div class="col-sm-8">';
                 echo '<div class="dropdown">';
                 echo '<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"><span>Type </span> <span class="caret"></span></button>';
@@ -79,6 +80,47 @@
                   echo '> ';
                   echo $list_types[$index] . ' (' . $type_count . ')';
                   echo '<label>';
+=======
+                  echo '<div class="col-sm-8">';
+                  echo '<div class="dropdown">';
+                  echo '<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"><span>Type </span> <span class="caret"></span></button>';
+                  
+                  echo '<ul class="dropdown-menu">';
+                  echo '<div class="container width="auto">';
+                  for($index = 0; $index <= sizeof($list_types) - 1; $index++){
+                    echo '<div class="checkboxdiv">'; 
+                    echo  '<label><input type="checkbox" value="" class="cBox" id=';
+                    echo $list_types[$index];
+                    echo '> ';
+                    echo $list_types[$index];
+                    echo '<label>';
+                    echo '</div>';
+                  }
+                  echo '</div>';
+                  echo '</ul>';
+                  echo '</div>';
+                  echo '</div>';
+
+                  #Dropdown for type of event
+                  echo '<div class="col-sm-8">';
+                  echo '<div class="dropdown">';
+                  echo '<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"><span>Keywords </span> <span class="caret"></span></button>';
+                  
+                  echo '<ul class="dropdown-menu">';
+                  echo '<div class="container width="auto">';
+                  for($index = 0; $index <= sizeof($list_tags) - 1; $index++){
+                    echo '<div class="checkboxdiv">'; 
+                    echo  '<label><input type="checkbox" value="" class="cBox" id=';
+                    echo $list_tags[$index];
+                    echo '> ';
+                    echo $list_tags[$index];
+                    echo '<label>';
+                    echo '</div>';
+                  }
+                  echo '</div>';
+                  echo '</ul>';
+                  echo '</div>';
+>>>>>>> origin/master
                   echo '</div>';
                 }
 
