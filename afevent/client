@@ -1,0 +1,2 @@
+client = MongoClient(host=MONGO_HOST,port=27017,max_pool_size=200)
+client.drop_database("eventDB")
