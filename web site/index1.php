@@ -41,19 +41,40 @@
             <div class="panel-heading"><h4>Filter your search</h4></div>
             <div class="panel-body">
               <div class="row">
-                <div class="col-sm-8">
                   <?php
+                  // echo '<div class="dropdown">';
+                  // echo '<button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" id="dropdownLocation">Location   <span class="caret"></span></button>';
+                  // echo  '<ul class="dropdown-menu" aria-labelledby="dropdownLocation">';
+                  // for($index = 0; $index <= sizeof($list_locations) - 1; $index++){
+                  //   echo '<li><a href="#">';
+                  //   echo $list_locations[$index];
+                  //   echo '</a></li>';
+                  // } 
+                  // echo '</ul>';
+                  // echo '</div>';
+                  // echo '</div>';
+                  #Dropdown for city of the events
+                  echo '<div class="col-sm-8">';
                   echo '<div class="dropdown">';
-                  echo '<button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" id="dropdownLocation">Location   <span class="caret"></span></button>';
-                  echo  '<ul class="dropdown-menu" aria-labelledby="dropdownLocation">';
+                  echo '<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"><span>Location </span> <span class="caret"></span></button>';
+                  
+                  echo '<ul class="dropdown-menu">';
+                  
                   for($index = 0; $index <= sizeof($list_locations) - 1; $index++){
-                    echo '<li><a href="#">';
+                    $location_count = ($events->count(array('location'=>$list_locations[$index])));
+                    echo '<div class="checkboxdiv">'; 
+                    echo  '<label><input type="checkbox" value="" class="cBox" id=';
                     echo $list_locations[$index];
-                    echo '</a></li>';
-                  } 
+                    echo '> ';
+                    echo $list_locations[$index] . ' (' . $location_count . ')';
+                    echo '<label>';
+                    echo '</div>';
+                  }
+                  
                   echo '</ul>';
                   echo '</div>';
                   echo '</div>';
+
                   #Dropdown for tag of the events
                   echo '<div class="col-sm-8">';
                   echo '<div class="dropdown">';
@@ -62,7 +83,7 @@
                   echo '<ul class="dropdown-menu">';
                   
                   for($index = 0; $index <= sizeof($list_types) - 1; $index++){
-                    $type_count = ($events->count(array('tags'=>$list_tags[$index])));
+                    $type_count = ($events->count(array('type'=>$list_types[$index])));
                     echo '<div class="checkboxdiv">'; 
                     echo  '<label><input type="checkbox" value="" class="cBox" id=';
                     echo $list_types[$index];
@@ -126,8 +147,8 @@
                   echo '<div class="panel-body">';
                   echo '<strong>Location: </strong>' . (!empty($current["location"]) ? $current['location'] : "");
                   echo "<br>";
-                  echo '<strong>Host: </strong>' . (!empty($current["host"]) ? $current['host'] : "");
-                  echo "<br>";
+                  // echo '<strong>Host: </strong>' . (!empty($current["host"]) ? $current['host'] : "");
+                  // echo "<br>";
                   echo '<strong>Date: </strong>' . (!empty($current["date"]) ? $current['date'] : "");
                   echo "<br>";
                   echo '<strong>Time: </strong>' . (!empty($current["time"]) ? $current['time'] : "");
@@ -150,7 +171,6 @@
                     echo $type[$i] . " ";
                   echo "<br>";
                   echo '</pre>';
-                  echo "<br>";
                   echo '</div>';
                   echo '</div>';
                 }
