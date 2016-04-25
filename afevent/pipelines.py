@@ -49,6 +49,8 @@ class AfeventPipeline(object):
                     if level2_word.lower() in description or level2_word.lower() in title:
                         if level1_word not in item['tags']:
                             item['tags'].append(level1_word)
+
+
             self.collection.insert(dict(item))
 
         for data in item:
