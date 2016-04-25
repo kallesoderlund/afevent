@@ -12,7 +12,7 @@ from scrapy 	import Item, Field
 # attribute is not presented on the website, the attribute will receive a null value. 
 class AfeventItem(scrapy.Item):
     title = Field()
-    city = Field()
+    location = Field()
     venue = Field()
     host = Field()
     date = Field()
@@ -21,3 +21,4 @@ class AfeventItem(scrapy.Item):
     time = Field()
     description = Field()
     tags = Field()
+    type = Field()

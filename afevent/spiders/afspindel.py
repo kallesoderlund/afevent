@@ -29,7 +29,6 @@ class MySpider(CrawlSpider):
 			item = AfeventItem()
 			print "response.xpath"
 			item['title'] = div.xpath('//*[@id="mainContent"]/main/section[3]/div[1]/div[1]/article/h1/text()').extract()[i]
-			#item['city'] = div.xpath('').extract_first()
 			item['venue'] = div.xpath('//*[@id="mainContent"]/main/section[3]/div[1]/div[1]/article/p[2]/text()').extract()[i]
 			item['date'] = div.xpath('//*[@id="mainContent"]/main/section[3]/div[1]/div[1]/article/span/text()').extract()[i]
 			item['time'] = div.xpath('//*[@id="mainContent"]/main/section[3]/div[1]/div[1]/article/p[2]/span[2]/span/text()|//*[@id="mainContent"]/main/section[3]/div[1]/div[1]/article/p[3]/span/text()[3]').extract()[i]

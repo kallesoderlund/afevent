@@ -21,36 +21,46 @@ class AfeventPipeline(object):
         )
         db = connection[settings['MONGODB_DB']]
         self.collection = db[settings['MONGODB_COLLECTION']]
-        #keyword_file = open("\Users\A503482\Exjobb\afevent\afevent\keywords.json")
         with open("keywords_final.json") as json_file:
             global json_data
             json_data = json.load(json_file)
 
-
-
+        with open("type.json") as json_file:
+            global json_data2
+            json_data2 = json.load(json_file)
         
     def process_item(self, item, spider):
+        cityDict = {'Gothenburg' : 'Göteborg', 'Göteborg ': 'Göteborg', 'Malmo': 'Malmö', 'Malmö ': 'Malmö', 'Stockholm ': 'Stockholm', 'ÖstersundSenior': 'Östersund'}
         if self.collection.find_one({'url': item['url']}):
             raise DropItem('Item already in DB')
         else:
             description = item['description'].lower()
             title = item['title'].lower()
             item['tags'] = []
-            #keywords = ["fastighet", "commerce", "automatic", "industri", "process", "autmation", "student", "ingenjor", "skog", "digital", "infrastruktur", "it", "samhallsbyggnad", "fisksas"]
+            item['type'] = []
+
+            for type1_word in json_data2:
+                for type2_word in json_data2[type1_word]:
+                    if type2_word.lower() in description or type2_word.lower() in title:
+                        if type1_word not in item['type']:
+                            item['type'].append(type1_word)
 
             for level1_word in json_data:
                 for level2_word in json_data[level1_word]:
                     if level2_word.lower() in description or level2_word.lower() in title:
                         if level1_word not in item['tags']:
                             item['tags'].append(level1_word)
-            print item['tags']
+
+            for key, value in cityDict.iteritems():
+                if key == item['location']:
+                    item['location'] = value
             self.collection.insert(dict(item))
 
         for data in item:
           if not data:
               valid = False
               raise DropItem("Missing {0}!".format(data))
-        item['city'] = item['city'].strip()
+        item['location'] = item['location'].strip()
         return item
 
     	

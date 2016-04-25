@@ -1,0 +1,7 @@
+{
+  "Mässa":["exhibition", "fair", "mäss"],
+  "Föreläsning": ["föreläs", "lecture"],
+  "Kurs": ["kurs", "course"],
+  "Workshop": ["workshop", "hackathon"],
+  "Konferens": ["conference", "konferens"]
+}

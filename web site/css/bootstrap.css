@@ -3013,7 +3013,7 @@ select[multiple].input-lg {
 .btn {
   display: inline-block;
   padding: 6px 12px;
-  margin-bottom: 0;
+  margin: 2px;
   font-size: 14px;
   font-weight: normal;
   line-height: 1.42857143;
@@ -6788,4 +6788,10 @@ button.close {
 .checkboxdiv:hover {
   background-color: rgb(51, 122, 183);
   color: white;
+}
+
+.scrollable-menu {
+    height: auto;
+    max-height: 500px;
+    overflow-x: hidden;
 }

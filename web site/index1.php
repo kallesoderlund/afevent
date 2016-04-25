@@ -25,114 +25,150 @@
     $m = new Mongo();
     $db = $m->selectDB('eventDB');
     $events = new MongoCollection($db, 'events');
-    // list all unique cities in DB
-    $list_cities = $events->distinct("city");
+    // list all unique locations in DB
+    $list_locations = $events->distinct("location");
     $list_tags = $events->distinct("tags");
+    $list_types = $events->distinct("type");
     sort($list_tags);
-    sort($list_cities);
-    //$list_cities->sort(array("city"=>1));
+    sort($list_locations);
+    sort($list_types);
     ?>
+
     <div class="container fluid">
       <div class="row">
-        <div class="col-sm-3 text-left">
+        <div class="fixed col-sm-3 text-left">
           <div class="panel panel-default">
             <div class="panel-heading"><h4>Filter your search</h4></div>
             <div class="panel-body">
               <div class="row">
-                <div class="col-sm-8">
-                  <?php
-                  echo '<div class="dropdown">';
-                  echo '<button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" id="dropdownCity">City   <span class="caret"></span></button>';
-                  echo  '<ul class="dropdown-menu" aria-labelledby="dropdownCity">';
-                  for($index = 0; $index <= sizeof($list_cities) - 1; $index++){
-                    echo '<li><a href="#">';
-                    echo $list_cities[$index];
-                    echo '</a></li>';
-                  } 
-                  echo '</ul>';
-                  echo '</div>';
-                  echo '</div>';
-                  echo '<div class="col-sm-8">';
-                  echo '<div class="dropdown">';
-                  echo '<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"><span>Keywords </span> <span class="caret"></span></button>';
-                  echo '<ul class="dropdown-menu">';
-                  for($index = 0; $index <= sizeof($list_tags) - 1; $index++){
-                    $number_of_tags=$events->count(array('tags'=>$list_tags[$index]));
-                    echo '<div class="checkboxdiv"  id="checkArray">'; 
-                    echo  '<label><input type="checkbox" value="" class="cBox" id=';
-                    echo $list_tags[$index];
-                    echo '> ';
-                    echo $list_tags[$index];
-                    echo ' (' . $number_of_tags . ')';
-                    echo '<label>';
-                    echo '</div>';
-                  }
-                  echo '</ul>';
-                  echo '</div>';
-                  echo '</div>';
-                  echo '<div class="col-sm-8">';
-                  echo '<button class="btn btn-default position-right" type="reset" id="resetFilter">Reset Filters</button>';
-                  echo '</div>';
-                  echo '</div>';
-                  ?>
-                </div>
-              </div>
-            </div>
-            <div class="col-sm-8 text-left"> 
-              <div class="panel-group">
                 <?php
-        // define variables and set to empty values
-                $title = $host = $city = $date = $url = $time = "";
-                $city = (isset($_POST['city']) ? $_POST['city'] : '');
-                $today = date("Y-m-d");
-                $cityQuery = array('city' => $city, 'date'=> array('$gte'=>$today));
-                $afterToday=array('date'=> array('$gte'=>$today));
+                  #Dropdown for city of the events
+                echo '<div class="col-sm-8">';
+                echo '<div class="dropdown">';
+                echo '<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"><span>Location </span> <span class="caret"></span></button>';
 
-                $query = $events->find($afterToday);
-                $query->sort(array("date"=>1));
-                foreach ( $query as $current ){
-                  echo '<div class="panel panel-primary">';
-                  echo '<a href="'.$current["url"].'"><div class="panel-heading"><h3 id="title-text">' . $current["title"];
-                  echo '</h3></div></a>';
-                  echo '<div class="panel-body">';
-                  echo '<strong>City: </strong>' . (!empty($current["city"]) ? $current['city'] : "");
-                  echo "<br>";
-                  echo '<strong>Host: </strong>' . (!empty($current["host"]) ? $current['host'] : "");
-                  echo "<br>";
-                  echo '<strong>Date: </strong>' . (!empty($current["date"]) ? $current['date'] : "");
-                  echo "<br>";
-                  echo '<strong>Time: </strong>' . (!empty($current["time"]) ? $current['time'] : "");
-                  echo "<br>";
-                  echo '<strong>Description: </strong>' . (!empty($current["description"]) ? $current['description'] : "");
-                  echo "<br>";
-                  echo '<strong>Tags: </strong>'; 
-                  $tags = $current["tags"];
-                  sort($tags);
-                  $len=count($tags);
-                  for ($i=0;$i<$len;$i++)
-                    echo '<u>' . $tags[$i] . '</u>, ';
-                  echo '</pre>';
-                  echo "<br>";
-                  echo '</div>';
+                echo '<ul class="dropdown-menu scrollable-menu">';
+
+                for($index = 0; $index <= sizeof($list_locations) - 1; $index++){
+                  $location_count = ($events->count(array('location'=>$list_locations[$index])));
+                  echo '<div class="checkboxdiv">'; 
+                  echo  '<label><input type="checkbox" value="" class="cBox" id=';
+                  echo $list_locations[$index];
+                  echo '> ';
+                  echo $list_locations[$index] . ' (' . $location_count . ')';
+                  echo '<label>';
                   echo '</div>';
                 }
+
+                echo '</ul>';
+                echo '</div>';
+                echo '</div>';
+
+                  #Dropdown for tag of the events
+                echo '<div class="col-sm-8">';
+                echo '<div class="dropdown">';
+                echo '<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"><span>Type </span> <span class="caret"></span></button>';
+
+                echo '<ul class="dropdown-menu scrollable-menu">';
+
+                for($index = 0; $index <= sizeof($list_types) - 1; $index++){
+                  $type_count = ($events->count(array('type'=>$list_types[$index])));
+                  echo '<div class="checkboxdiv">'; 
+                  echo  '<label><input type="checkbox" value="" class="cBox" id=';
+                  echo $list_types[$index];
+                  echo '> ';
+                  echo $list_types[$index] . ' (' . $type_count . ')';
+                  echo '<label>';
+                  echo '</div>';
+                }
+
+                echo '</ul>';
+                echo '</div>';
+                echo '</div>';
+
+                #Dropdown for type of event
+                echo '<div class="col-sm-8">';
+                echo '<div class="dropdown">';
+                echo '<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"><span>Keywords </span> <span class="caret"></span></button>';
+
+                echo '<ul class="dropdown-menu scrollable-menu">';
+
+                for($index = 0; $index <= sizeof($list_tags) - 1; $index++){
+                  $tags_count = ($events->count(array('tags'=>$list_tags[$index])));
+                  echo '<div class="checkboxdiv">'; 
+                  echo  '<label><input type="checkbox" value="" class="cBox" id=';
+                  echo $list_tags[$index];
+                  echo '> ';
+                  echo $list_tags[$index] . ' (' . $tags_count . ')';
+                  echo '</label>';
+                  echo '</div>';
+                }
+
+                echo '</ul>';
+                echo '</div>';
+                echo '</div>';
+                echo '</div>';
+
+                echo '<br>';
+                echo '<br>';
+                echo '<button class="btn btn-default position-right" type="reset" id="resetFilter">Reset Filters</button>';
                 ?>
               </div>
             </div>
           </div>
+          <div class="col-sm-8 text-left"> 
+            <div class="panel-group">
+              <?php
+        // define variables and set to empty values
+              $title = $host = $location = $date = $url = $time = "";
+              $location = (isset($_POST['location']) ? $_POST['location'] : '');
+              $today = date("Y-m-d");
+              $locationQuery = array('location' => $location, 'date'=> array('$gte'=>$today));
+              $afterToday=array('date'=> array('$gte'=>$today));
+
+              $query = $events->find($afterToday);
+              $query->sort(array("date"=>1));
+              foreach ( $query as $current ){
+                echo '<div class="panel panel-primary">';
+                echo '<a href="'.$current["url"].'"><div class="panel-heading"><h3 id="title-text">' . $current["title"];
+                echo '</h3></div></a>';
+                echo '<div class="panel-body">';
+                echo '<strong>Location: </strong>' . (!empty($current["location"]) ? $current['location'] : "");
+                echo "<br>";
+                echo '<strong>Date: </strong>' . (!empty($current["date"]) ? $current['date'] : "");
+                echo "<br>";
+                echo '<strong>Time: </strong>' . (!empty($current["time"]) ? $current['time'] : "");
+                echo "<br>";
+                echo '<strong>Description: </strong>' . (!empty($current["description"]) ? $current['description'] : "");
+                echo "<br>";
+                echo '<strong>Tags: </strong>' ; 
+                $tags = $current["tags"];
+                sort($tags);
+                $len=count($tags);
+                for ($i=0;$i<$len;$i++)
+                  echo '<u>' . $tags[$i] . '</u>, ';
+
+                echo "<br>";
+                echo '<strong>Type: </strong>' ; 
+                $type = $current["type"];
+                sort($type);
+                $len=count($type);
+                for ($i=0;$i<$len;$i++)
+                  echo $type[$i] . " ";
+                echo "<br>";
+                echo '</pre>';
+                echo '</div>';
+                echo '</div>';
+              }
+              ?>
+            </div>
+          </div>
         </div>
-        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-        <!-- Include all compiled plugins (below), or include individual files as needed -->
-        <script src="js/bootstrap.min.js"></script>
-        <!-- Changes the viewed value in on the drop down menus when selected -->
-        <script> $(".dropdown-menu li a").click(function(){
-          $(this).parents(".dropdown").find('.btn').html($(this).text() + ' <span class="caret"></span>');
-          $(this).parents(".dropdown").find('.btn').val($(this).data('value'));
-          $(".panel-primary:not(:contains('"  + $(this).text() + "'))").hide();
-          $(".panel-primary:contains('"  +'City: '+ $(this).text() + "')").show();
-        });
-      </script>
+      </div>
+      <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+      <!-- Include all compiled plugins (below), or include individual files as needed -->
+      <script src="js/bootstrap.min.js"></script>
       <script>
         $(function() {
           $("#resetFilter").trigger("click");
@@ -140,30 +176,39 @@
       </script>
       <script>
         $("#resetFilter").on("click", function(){
-          $("#dropdownCity").button("reset")
-          $('.cBox').change();
+          $("#dropdownLocation").button("reset")
+            $('.cBox').prop('checked', false); // Unchecks it
+            countCheckedCheckboxes = 0;
+            $('.panel-primary').show();
+          });
+        </script>
+        <script>
+          $(document).ready(function(){
+            var $checkboxes = $('[type="checkbox"]');
+            $('.cBox').change(function() {
+              console.log('nytt')
+              var countCheckedCheckboxes = $checkboxes.filter(':checked').length;
+              console.log(countCheckedCheckboxes);
+              $('input[type=checkbox]').each(function () {
+                var checkID = $(this).attr("id");
+                $(".panel-primary:not(:contains('" + checkID + "'))").hide();
+          //console.log(checkID);
         });
-      </script>
+              $('input[type=checkbox]').each(function () {
+                var checkID = $(this).attr("id");
+                if( $(this).is(':checked')) {
+                  console.log(checkID + " is checked");
+                  $(".panel-primary:contains('" +checkID+ "')").show();
+                  console.log(countCheckedCheckboxes);
+                };
+                if (countCheckedCheckboxes == 0){
+                  $('.panel-primary').show();
+                }
 
-<!--       <script>
-      var atLeastOneChecked = $('#checkArray:checkbox:checked').length;
-      if (atLeastOneChecked > 0){
-            $(".panel-primary").hide
-          }
-        $('.cBox').change(function() {
-          var checkID = $(this).attr("id");
-          
-          if (atLeastOneChecked > 0){
-            $(".panel-primary").hide
-            if( $(this).is(':checked')) {
-              $(".panel-primary:not(:contains('" + checkID + "'))").show();
-        //$(".panel-primary").hide();
-      } else {
-        $(".panel-primary:not(:contains('" + checkID + "'))").hide();
-      } 
-    }
-  }); 
-  </script> -->
+              });
+            });
+          });
+        </script>
 
-</body>
-</html>
+      </body>
+      </html>
