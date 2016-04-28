@@ -33,7 +33,7 @@ class MySpider(CrawlSpider):
 
 	#The following code changes the format of the date
 			origDate = div.xpath ('//div/div/div[2]/section/ul/li[@class="schedule-when icon-when schedule__row"]/text()').extract()[i]
-			#split up the text in the date
+	#split up the text in the date
 			newDate = origDate.split()
 
 	#Handles if date is between two dates, e.g. "10 - 11 maj 2016"
@@ -72,12 +72,4 @@ class MySpider(CrawlSpider):
 
 			yield item
 
-
-
-	def parse_second(self, response):
-	#	item = response.meta['item']
-	#	item ['description'] = ''.join(response.xpath('//div[@class="bigdescription"]/text()').extract())
-	#	item['host'] = ''.join(response.xpath('//tr[@class="organizer"]/td[@class="detail"]/a/text()').extract())
-	#	item['time'] = ''.join(response.xpath('//tr[@class="time"]/td[@class="detail"]/text()').extract())
-		yield self
 		

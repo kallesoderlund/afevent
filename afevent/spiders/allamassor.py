@@ -70,6 +70,7 @@ class MySpider(CrawlSpider):
 			 	i = i + 1
 			 	yield request
 
+	#For items collected in sites where the spider follows a url to another site
 	def parse_second(self, response):
 		item = response.meta['item']
 		item ['description'] = ''.join(response.xpath('//div[@class="bigdescription"]/text()').extract())
