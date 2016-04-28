@@ -3,6 +3,6 @@
   "Föreläsning": ["föreläs", "lecture"],
   "Kurs": ["kurs", "course"],
   "Workshop": ["workshop", "hackathon"],
-  "Konferens": ["conference", "konferens"]
-  
+  "Konferens": ["conference", "konferens"],
+  "Seminarium": ["seminar"]
 }

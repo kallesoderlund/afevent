@@ -8,7 +8,7 @@ from scrapy.crawler     		import CrawlerProcess
 from urlparse 					import urljoin
 
 class MySpider(CrawlSpider):
-	name 		= "iva"
+	name 		= "iva2"
 	allowed_domains	= ["iva.se"]
 	start_urls	= ["http://www.iva.se/kommande-event/"]
  
@@ -18,10 +18,10 @@ class MySpider(CrawlSpider):
 
 	def parse(self, response):
 		i = 0
-		for div in response.xpath('//article[@class="item"]'):
+		for div in response.xpath('//article'):
 			item = AfeventItem()
 	#Store data into lists
-			item['title'] = div.xpath('//div/div/div[1]/div[1]/a/h2/text()').extract()[i]
+			item['title'] = div.xpath('//div/div/div[1]/div[1]/a/*[self::h1 or self::h2]/text()').extract()[i]
 			url = div.xpath('.//div/div/div[1]/div[1]/a/@href').extract()[0]
 			url = 'http://iva.se' + url
 			item['url'] = url

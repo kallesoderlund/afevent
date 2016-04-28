@@ -56,7 +56,7 @@
                   echo $list_locations[$index];
                   echo '> ';
                   echo $list_locations[$index] . ' (' . $location_count . ')';
-                  echo '<label>';
+                  echo '</label>';
                   echo '</div>';
                 }
 
@@ -79,52 +79,14 @@
                   echo $list_types[$index];
                   echo '> ';
                   echo $list_types[$index] . ' (' . $type_count . ')';
-                  echo '<label>';
-                  echo '<div class="col-sm-8">';
-                  echo '<div class="dropdown">';
-                  echo '<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"><span>Type </span> <span class="caret"></span></button>';
-                  
-                  echo '<ul class="dropdown-menu">';
-                  echo '<div class="container width="auto">';
-                  for($index = 0; $index <= sizeof($list_types) - 1; $index++){
-                    echo '<div class="checkboxdiv">'; 
-                    echo  '<label><input type="checkbox" value="" class="cBox" id=';
-                    echo $list_types[$index];
-                    echo '> ';
-                    echo $list_types[$index];
-                    echo '<label>';
+                  echo '</label>';
                     echo '</div>';
                   }
-                  echo '</div>';
                   echo '</ul>';
                   echo '</div>';
                   echo '</div>';
 
-                  #Dropdown for type of event
-                  echo '<div class="col-sm-8">';
-                  echo '<div class="dropdown">';
-                  echo '<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"><span>Keywords </span> <span class="caret"></span></button>';
-                  
-                  echo '<ul class="dropdown-menu">';
-                  echo '<div class="container width="auto">';
-                  for($index = 0; $index <= sizeof($list_tags) - 1; $index++){
-                    echo '<div class="checkboxdiv">'; 
-                    echo  '<label><input type="checkbox" value="" class="cBox" id=';
-                    echo $list_tags[$index];
-                    echo '> ';
-                    echo $list_tags[$index];
-                    echo '<label>';
-                    echo '</div>';
-                  }
-                  echo '</div>';
-                  echo '</ul>';
-                  echo '</div>';
-                  echo '</div>';
-                }
 
-                echo '</ul>';
-                echo '</div>';
-                echo '</div>';
 
                 #Dropdown for type of event
                 echo '<div class="col-sm-8">';
@@ -177,18 +139,6 @@
                 echo "<br>";
                 echo '<strong>Date: </strong>' . (!empty($current["date"]) ? $current['date'] : "");
                 echo "<br>";
-                echo '<strong>Time: </strong>' . (!empty($current["time"]) ? $current['time'] : "");
-                echo "<br>";
-                echo '<strong>Description: </strong>' . (!empty($current["description"]) ? $current['description'] : "");
-                echo "<br>";
-                echo '<strong>Tags: </strong>' ; 
-                $tags = $current["tags"];
-                sort($tags);
-                $len=count($tags);
-                for ($i=0;$i<$len;$i++)
-                  echo '<u>' . $tags[$i] . '</u>, ';
-
-                echo "<br>";
                 echo '<strong>Type: </strong>' ; 
                 $type = $current["type"];
                 sort($type);
@@ -196,6 +146,20 @@
                 for ($i=0;$i<$len;$i++)
                   echo $type[$i] . " ";
                 echo "<br>";
+                echo '<strong>Tags: </strong>' ; 
+                $tags = $current["tags"];
+                sort($tags);
+                $len=count($tags);
+                for ($i=0;$i<$len;$i++)
+                  echo '<u>' . $tags[$i] . '</u>, ';
+                echo "<br>";
+                echo "<br>";
+                echo  (!empty($current["description"]) ? $current['description'] : "");
+                echo "<br>";
+
+
+
+
                 echo '</pre>';
                 echo '</div>';
                 echo '</div>';
