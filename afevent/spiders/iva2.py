@@ -8,7 +8,7 @@ from scrapy.crawler     		import CrawlerProcess
 from urlparse 					import urljoin
 
 class MySpider(CrawlSpider):
-	name 		= "iva2"
+	name 		= "iva"
 	allowed_domains	= ["iva.se"]
 	start_urls	= ["http://www.iva.se/kommande-event/"]
  
