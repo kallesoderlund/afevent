@@ -35,7 +35,7 @@ class AfeventPipeline(object):
         
     def process_item(self, item, spider):
 #List in order to correct misspelled locations        
-        locationDict = {'Gothenburg' : 'Göteborg', 'Malmo': 'Malmö', 'ÖstersundSenior': 'Östersund'}
+        locationDict = {'Gothenburg' : 'Göteborg', 'Göteborg ': 'Göteborg', 'Malmo': 'Malmö', 'ÖstersundSenior': 'Östersund', 'Stockholm ': 'Stockholm'}
 
 #Drop item if it is already in the database        
         if self.collection.find_one({'url': item['url']}):

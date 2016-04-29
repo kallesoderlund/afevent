@@ -149,7 +149,7 @@
       sort($tags);
       $len=count($tags);
       for ($i=0;$i<$len;$i++)
-      echo '<u>' . $tags[$i] . '</u>, ';
+      echo '<u>' . $tags[$i] . '</u> ';
       echo "</font><br>";
       echo '</pre>';
       echo '</div>';
